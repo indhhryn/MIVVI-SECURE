@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "weights": {
+    "suspicious_keyword": 2,
+    "url_outside_whitelist": 3,
+    "shortlink": 2,
+    "unknown_sender": 2,
+    "urgency": 1,
+    "sensitive_data": 3
+  },
+  "thresholds": {
+    "suspicious_from": 3,
+    "phishing_from": 6
+  },
+  "keywords": [
+    "menang", "hadiah", "verifikasi akun", "klik link", "klik tautan",
+    "rekening diblokir", "akun diblokir", "terblokir", "kode otp", "otp",
+    "pembaruan data", "konfirmasi akun", "klaim hadiah", "akun anda"
+  ],
+  "urgency_patterns": [
+    "segera", "1x24 jam", "24 jam", "hari ini", "secepatnya",
+    "segera lakukan", "batas waktu", "terakhir hari ini", "jangan sampai terlambat",
+    "akan diblokir", "sebelum terlambat"
+  ],
+  "sensitive_patterns": ["otp", "pin", "password", "kata sandi", "nomor kartu", "cvv", "kode verifikasi"],
+  "official_domains": [
+    "bankmandiri.co.id", "bca.co.id", "bri.co.id", "bni.co.id",
+    "bankindonesia.go.id", "pajak.go.id", "bpjs-kesehatan.go.id"
+  ],
+  "shortlink_domains": ["bit.ly", "tinyurl.com", "t.co", "goo.gl", "cutt.ly", "s.id", "rb.gy", "tiny.cc"]
+}
