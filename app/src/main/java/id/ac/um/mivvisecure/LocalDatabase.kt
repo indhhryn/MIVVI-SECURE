@@ -77,6 +77,51 @@ class LocalDatabase(context: Context) : SQLiteOpenHelper(context, "mivvi_secure.
         return result
     }
 
+    fun queryFiltered(source: String? = null, category: String? = null, query: String? = null, limit: Int = 100): List<AnalysisRecord> {
+        val conditions = mutableListOf<String>()
+        val args = mutableListOf<String>()
+
+        if (!source.isNullOrBlank()) {
+            conditions += "source = ?"
+            args += source
+        }
+        if (!category.isNullOrBlank()) {
+            if (category == "PERLU_DIPERIKSA") {
+                conditions += "(category = 'MENCURIGAKAN' OR category = 'PHISHING')"
+            } else {
+                conditions += "category = ?"
+                args += category
+            }
+        }
+        if (!query.isNullOrBlank()) {
+            conditions += "(sender LIKE ? OR body LIKE ?)"
+            args += "%$query%"
+            args += "%$query%"
+        }
+
+        val selection = if (conditions.isNotEmpty()) conditions.joinToString(" AND ") else null
+        val selectionArgs = if (args.isNotEmpty()) args.toTypedArray() else null
+
+        val result = mutableListOf<AnalysisRecord>()
+        readableDatabase.query("analyses", null, selection, selectionArgs, null, null, "received_at DESC", limit.toString()).use { c ->
+            while (c.moveToNext()) {
+                result += AnalysisRecord(
+                    c.getLong(c.getColumnIndexOrThrow("id")),
+                    c.getString(c.getColumnIndexOrThrow("source")),
+                    c.getString(c.getColumnIndexOrThrow("sender")),
+                    c.getString(c.getColumnIndexOrThrow("body")),
+                    c.getLong(c.getColumnIndexOrThrow("received_at")),
+                    c.getInt(c.getColumnIndexOrThrow("score")),
+                    c.getString(c.getColumnIndexOrThrow("category")),
+                    c.getString(c.getColumnIndexOrThrow("features_json")),
+                    c.getInt(c.getColumnIndexOrThrow("is_demo")) == 1,
+                    c.getString(c.getColumnIndexOrThrow("package_name"))
+                )
+            }
+        }
+        return result
+    }
+
     fun count(): Int = readableDatabase.rawQuery("SELECT COUNT(*) FROM analyses", null).use { c -> if (c.moveToFirst()) c.getInt(0) else 0 }
     fun highRiskCount(): Int = readableDatabase.rawQuery("SELECT COUNT(*) FROM analyses WHERE score >= 6", null).use { c -> if (c.moveToFirst()) c.getInt(0) else 0 }
     fun delete(id: Long): Int = writableDatabase.delete("analyses", "id=?", arrayOf(id.toString()))

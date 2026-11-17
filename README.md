@@ -2,74 +2,442 @@
 
 **Your messages. Your safety. — Kenali risiko. Lindungi dirimu.**
 
-MIVVI SECURE adalah prototipe aplikasi Android untuk membantu mengenali indikasi phishing pada pesan SMS dan WhatsApp. Sistem menggunakan **Rule-Based Risk Scoring**, bukan machine learning. Pemeriksaan pesan dilakukan secara lokal di perangkat.
+MIVVI SECURE adalah prototipe aplikasi Android yang membantu pengguna mengenali indikasi phishing pada pesan SMS dan WhatsApp. Aplikasi menganalisis teks yang tersedia pada notifikasi atau teks yang dimasukkan secara manual, lalu menampilkan skor dan kategori risiko.
 
-> Status rilis: source code dan backend API tersedia. APK belum dapat disertakan dari lingkungan pembuatan ini karena Android SDK/Build Tools dan Gradle tidak tersedia serta akses unduhan toolchain diblokir. Cara membangun APK dijelaskan di bawah. Jangan mengganti status ini dengan file ber-ekstensi `.apk` yang bukan paket Android valid.
+Metode deteksi yang digunakan adalah **Rule-Based Risk Scoring**. Sistem tidak menggunakan machine learning atau model AI. Analisis pesan dilakukan di perangkat Android, sedangkan backend FastAPI bersifat opsional dan hanya menyediakan konfigurasi aturan deteksi.
 
-## Fitur
+> **Status proyek:** source code Android dan backend API tersedia. APK belum disertakan karena APK belum berhasil dibangun di lingkungan pembuatan ini. Panduan build lokal dan GitHub Actions tersedia di repository. Jangan menganggap source code sebagai APK yang siap dipasang.
 
-- Analisis manual untuk teks SMS atau WhatsApp.
-- Deteksi notifikasi SMS/WhatsApp melalui `NotificationListenerService` setelah pengguna mengaktifkan izin **Notification Access** di Android.
-- Pemrosesan hanya terhadap paket aplikasi SMS yang didukung dan WhatsApp/WhatsApp Business.
-- Pembacaan konten berdasarkan pratinjau notifikasi yang disediakan Android. Jika pratinjau disembunyikan, aplikasi menyimpan catatan metadata dengan status konten tidak tersedia; isi pesan tidak ditebak.
-- Rule-based risk scoring dengan enam indikator dan bobot yang sudah disepakati.
-- Kategori AMAN, MENCURIGAKAN, dan PHISHING.
-- Riwayat analisis lokal dengan penghapusan seluruh riwayat.
-- Daftar pengirim tepercaya yang dapat dikelola pengguna.
-- API opsional untuk sinkronisasi keyword, bobot, threshold, whitelist domain, dan daftar shortlink.
-- Halaman Login, Sign Up, dan Forgot Password sebagai **UI prototype**; autentikasi belum tersambung ke backend. Aplikasi tetap dapat digunakan melalui Continue as Guest.
+## Daftar Isi
 
-## Metode deteksi
+1. [Latar Belakang](#1-latar-belakang)
+2. [Rumusan Masalah](#2-rumusan-masalah)
+3. [Tujuan dan Manfaat](#3-tujuan-dan-manfaat)
+4. [Konsep dan Ruang Lingkup](#4-konsep-dan-ruang-lingkup)
+5. [Fitur Aplikasi](#5-fitur-aplikasi)
+6. [Arsitektur dan Alur Kerja Sistem](#6-arsitektur-dan-alur-kerja-sistem)
+7. [Sepuluh Proses Komputasi pada Perangkat Mobile](#7-sepuluh-proses-komputasi-pada-perangkat-mobile)
+8. [Algoritma Rule-Based Risk Scoring](#8-algoritma-rule-based-risk-scoring)
+9. [Preprocessing dan Ekstraksi Fitur](#9-preprocessing-dan-ekstraksi-fitur)
+10. [Integrasi SMS, WhatsApp, dan Jaringan Wireless](#10-integrasi-sms-whatsapp-dan-jaringan-wireless)
+11. [Rules API](#11-rules-api)
+12. [Database dan Riwayat Analisis](#12-database-dan-riwayat-analisis)
+13. [Panduan Halaman Aplikasi](#13-panduan-halaman-aplikasi)
+14. [Teknologi dan Struktur Proyek](#14-teknologi-dan-struktur-proyek)
+15. [Instalasi dan Menjalankan Aplikasi](#15-instalasi-dan-menjalankan-aplikasi)
+16. [Pengujian dan Status Implementasi](#16-pengujian-dan-status-implementasi)
+17. [Privasi, Keamanan, dan Batasan](#17-privasi-keamanan-dan-batasan)
+18. [Pengembangan Selanjutnya](#18-pengembangan-selanjutnya)
 
-| Indikator | Bobot |
-|---|---:|
-| Keyword mencurigakan | +2 |
-| URL di luar whitelist resmi | +3 |
-| Shortlink | +2 |
-| Pengirim tidak dikenal | +2 |
-| Pola urgensi | +1 |
-| Permintaan data sensitif | +3 |
+---
 
-Klasifikasi:
+## 1. Latar Belakang
 
-- **AMAN**: skor < 3
-- **MENCURIGAKAN**: 3 ≤ skor < 6
-- **PHISHING**: skor ≥ 6
+Phishing melalui pesan singkat atau chat merupakan bentuk penipuan digital yang memanfaatkan pesan untuk mendorong korban melakukan tindakan tertentu, misalnya membuka tautan, mengirimkan kode OTP, atau memberikan informasi pribadi. Pesan dapat dibuat seolah-olah berasal dari bank, layanan digital, operator, atau instansi resmi. Pelaku juga dapat menggunakan kalimat mendesak, ancaman pemblokiran akun, hadiah palsu, dan tautan pendek untuk memengaruhi korban.
 
-Skor contoh maksimum keenam indikator terpenuhi adalah 13. Setiap indikator dihitung satu kali walaupun terdapat beberapa keyword atau URL sejenis di dalam satu pesan. Indikator pengirim hanya dihitung jika identitas pengirim tersedia; pengirim dibandingkan dengan daftar tepercaya yang dimasukkan pengguna.
+Pengguna tidak selalu dapat membedakan pesan asli dan pesan phishing secara manual. Oleh karena itu, MIVVI SECURE dirancang sebagai prototipe pendamping yang memeriksa sejumlah karakteristik pesan dan menyajikan tingkat risiko beserta alasan pendeteksiannya.
 
-### Pipeline
+Contoh pesan uji:
 
-`SMS/WhatsApp notification → parsing → normalisasi → ekstraksi URL → tokenisasi/pencocokan keyword → pemeriksaan domain & shortlink → pemeriksaan pengirim → deteksi urgensi/data sensitif → weighted scoring → threshold classification → hasil`
+> Info: Rek Anda TERBLOKIR. Segera verifikasi dan klik bit.ly/verif-akun24 dalam 1x24 jam agar tidak hangus. Masukkan kode OTP Anda.
 
-Aho–Corasick digunakan untuk pencocokan banyak keyword. Regex digunakan untuk ekstraksi URL serta pola urgensi/data sensitif. Pemeriksaan whitelist menggunakan pencocokan domain yang membatasi kecocokan pada domain tepat atau subdomain (bukan sekadar substring).
+Contoh tersebut memuat beberapa karakteristik yang dapat diperiksa, seperti kata kunci mencurigakan, domain tautan di luar whitelist, shortlink, pengirim yang belum dikenal, pola urgensi, dan permintaan data sensitif.
 
-## Batasan penting integrasi SMS dan WhatsApp
+## 2. Rumusan Masalah
 
-Android tidak memberikan akses bebas ke database percakapan pribadi semua aplikasi. Implementasi ini menggunakan **NotificationListenerService**. Karena itu:
+1. Bagaimana mengenali indikasi phishing pada pesan SMS dan WhatsApp?
+2. Karakteristik apa saja yang dapat digunakan sebagai indikator risiko pesan?
+3. Bagaimana menghitung skor dan mengelompokkan pesan ke dalam kategori AMAN, MENCURIGAKAN, atau PHISHING?
+4. Bagaimana menjalankan proses analisis secara lokal pada perangkat mobile dengan memanfaatkan notifikasi yang diizinkan pengguna?
 
-1. Pengguna harus mengaktifkan Notification Access secara eksplisit dari pengaturan Android.
-2. Aplikasi hanya memproses notifikasi dari paket SMS dan WhatsApp yang didukung.
-3. Isi pesan hanya dapat dianalisis jika aplikasi sumber menampilkan teks dalam pratinjau notifikasi.
-4. Pengaturan privasi seperti menyembunyikan isi notifikasi, notifikasi yang tidak muncul, atau pembatasan aplikasi dapat membuat konten tidak tersedia.
-5. Implementasi ini tidak menjadi aplikasi SMS default, tidak memakai izin `READ_SMS`/`RECEIVE_SMS`, tidak membaca database chat WhatsApp, dan tidak memblokir pesan secara otomatis.
-6. Pengirim WhatsApp yang berupa nama tampilan dapat dimasukkan manual ke daftar pengirim tepercaya. Daftar kontak Android tidak dibaca otomatis.
+## 3. Tujuan dan Manfaat
 
-Aplikasi ini adalah alat bantu indikator risiko, bukan jaminan bahwa suatu pesan aman atau pasti phishing. Domain whitelist bawaan adalah contoh awal dan perlu ditinjau sebelum digunakan secara produksi.
+### Tujuan
 
-## Privasi dan penyimpanan
+- Merancang prototipe deteksi phishing menggunakan pendekatan Rule-Based Risk Scoring.
+- Memeriksa indikator berupa keyword, URL, shortlink, identitas pengirim, pola urgensi, dan permintaan data sensitif.
+- Menghasilkan skor, kategori risiko, serta penjelasan indikator yang terdeteksi.
+- Menjalankan proses analisis pada perangkat Android tanpa mengirim isi pesan ke backend.
 
-- Isi pesan dan hasil analisis disimpan di SQLite lokal aplikasi agar riwayat dapat dibuka kembali.
-- Tidak ada kode yang mengirim isi pesan, nomor pengirim, atau riwayat ke backend API.
-- API hanya digunakan untuk mengambil konfigurasi aturan melalui `GET /api/v1/rules`.
-- Implementasi ini belum mengenkripsi database lokal. Jangan gunakan pesan pribadi/sensitif sebagai data demo saat presentasi publik.
-- Hapus riwayat melalui menu Riwayat atau Pengaturan.
+### Manfaat yang diharapkan
 
-## Struktur repository
+- Membantu pengguna lebih waspada ketika menerima pesan yang memiliki karakteristik phishing.
+- Memberikan alasan yang lebih jelas daripada sekadar label aman atau berbahaya.
+- Menjadi prototipe awal untuk pembelajaran penerapan algoritma keamanan pada perangkat mobile.
+
+MIVVI SECURE merupakan alat bantu identifikasi indikasi risiko, bukan pengganti kewaspadaan pengguna maupun verifikasi melalui kanal resmi.
+
+## 4. Konsep dan Ruang Lingkup
+
+Konsep utama MIVVI SECURE adalah **analisis berbasis aturan yang berjalan di perangkat**. Setiap pesan diperiksa berdasarkan enam indikator. Jika suatu indikator terpenuhi, bobotnya ditambahkan ke skor risiko. Skor akhir dibandingkan dengan ambang kategori.
+
+Ruang lingkup implementasi saat ini:
+
+- Platform: Android, dengan minimum API 26 (Android 8.0).
+- Sumber pesan: teks yang dimasukkan melalui Analisis Manual dan pratinjau notifikasi dari aplikasi SMS/WhatsApp yang didukung.
+- Metode: pencocokan pola dan perhitungan skor deterministik.
+- Penyimpanan: SQLite lokal pada perangkat.
+- Sinkronisasi: pengambilan konfigurasi aturan dari Rules API opsional.
+- Autentikasi akun: halaman Login, Sign Up, dan Forgot Password masih berupa UI prototype; belum ada layanan akun.
+
+Di luar ruang lingkup: membaca database privat WhatsApp, mengambil seluruh SMS melalui database sistem, mencegat isi pesan sebelum diterima aplikasi sumber, memblokir atau menghapus pesan otomatis, dan menjamin bahwa semua pesan yang dikategorikan AMAN benar-benar aman.
+
+## 5. Fitur Aplikasi
+
+### 5.1 Analisis Manual
+
+Pengguna dapat menempelkan atau mengetik teks pesan, mengisi identitas pengirim secara opsional, lalu menjalankan analisis. Fitur ini berguna untuk menguji contoh pesan atau memeriksa teks yang diterima dari sumber lain.
+
+### 5.2 Pemantauan Notifikasi
+
+Dengan izin Notification Access yang diaktifkan sendiri oleh pengguna, aplikasi menerima event notifikasi dari paket SMS dan WhatsApp yang didukung. Aplikasi mencoba mengambil teks pratinjau yang disediakan Android. Jika isi pesan tidak tersedia, sistem hanya menyimpan metadata notifikasi dengan status konten tidak tersedia.
+
+### 5.3 Hasil Analisis
+
+Hasil menampilkan skor risiko, kategori, tingkat risiko, indikator yang terdeteksi, dan penjelasan singkat. Setiap indikator hanya menyumbang bobot satu kali per pesan.
+
+### 5.4 Aktivitas Notifikasi dan Riwayat
+
+Aktivitas menampilkan catatan notifikasi yang diterima. Riwayat menyimpan hasil analisis agar pengguna dapat melihat kembali pesan dan hasil sebelumnya. Data disimpan di database lokal.
+
+### 5.5 Pengirim Tepercaya
+
+Pengguna dapat mengelola daftar pengirim yang dianggap tepercaya. Identitas pengirim yang tersedia dibandingkan dengan daftar lokal tersebut. Daftar ini bukan verifikasi identitas resmi dan tidak otomatis membaca seluruh kontak perangkat.
+
+### 5.6 Edukasi Keamanan
+
+Halaman edukasi menyajikan materi pengenalan phishing, tautan mencurigakan, pola urgensi, dan permintaan data sensitif sebagai pendamping hasil analisis.
+
+### 5.7 Pengaturan dan Sinkronisasi Aturan
+
+Pengguna dapat memilih sumber notifikasi SMS/WhatsApp, mengelola pengirim tepercaya, mengatur alamat Rules API, dan menyinkronkan konfigurasi deteksi.
+
+### 5.8 Login dan Registrasi
+
+Halaman Login, Sign Up, dan Forgot Password merupakan rancangan antarmuka. Belum ada autentikasi, penyimpanan akun, atau proses pemulihan kata sandi pada backend. Pengguna dapat melanjutkan sebagai tamu.
+
+## 6. Arsitektur dan Alur Kerja Sistem
+
+### 6.1 Alur analisis notifikasi
+
+```text
+Notifikasi SMS / WhatsApp
+          |
+          v
+NotificationListenerService
+          |
+          v
+Filter paket dan preferensi sumber
+          |
+          v
+Parsing metadata dan teks pratinjau
+          |
+          v
+Preprocessing teks dan ekstraksi fitur
+          |
+          v
+Rule-Based Risk Scoring
+          |
+          v
+Klasifikasi berdasarkan threshold
+          |
+          v
+Hasil pada aplikasi + penyimpanan SQLite lokal
+```
+
+Jika teks pratinjau tidak tersedia, proses analisis tidak dipaksakan. Sistem menyimpan catatan notifikasi tanpa membuat isi pesan atau skor palsu.
+
+### 6.2 Alur analisis manual
+
+```text
+Pengguna memasukkan teks dan pengirim (opsional)
+          |
+          v
+RuleBasedAnalyzer
+          |
+          v
+Preprocessing dan pemeriksaan enam indikator
+          |
+          v
+Perhitungan skor dan klasifikasi
+          |
+          v
+Halaman hasil analisis
+          |
+          v
+Penyimpanan riwayat lokal
+```
+
+### 6.3 Komponen utama
+
+- `MainActivity`: antarmuka, navigasi, analisis manual, hasil, aktivitas, riwayat, edukasi, dan pengaturan.
+- `NotificationMonitorService`: menerima dan memfilter notifikasi dari paket sumber yang didukung.
+- `RuleBasedAnalyzer`: preprocessing, ekstraksi fitur, pencocokan aturan, penghitungan skor, dan klasifikasi.
+- `RuleConfigStore`: memuat konfigurasi default atau konfigurasi yang telah disinkronkan.
+- `ApiClient`: mengambil konfigurasi dari server.
+- `LocalDatabase`: menyimpan dan membaca riwayat analisis menggunakan SQLite.
+- `AppPrefs`: menyimpan preferensi sumber notifikasi, alamat API, dan daftar pengirim tepercaya.
+
+## 7. Sepuluh Proses Komputasi pada Perangkat Mobile
+
+Bagian ini merinci sepuluh proses komputasi yang dilakukan oleh aplikasi Android. Proses berikut dipetakan dari implementasi Kotlin yang tersedia, bukan klaim fitur yang belum dibuat.
+
+### Proses 1 — Filter Sumber Notifikasi
+
+- **Compute:** memeriksa package name notifikasi untuk menentukan apakah sumber termasuk aplikasi SMS atau WhatsApp yang didukung, lalu memeriksa preferensi sumber pengguna.
+- **Algoritma:** pencocokan keanggotaan himpunan (set membership) dan pemeriksaan kondisi.
+- **Cara kerja:** sistem memeriksa package name terhadap daftar paket SMS dan WhatsApp. Notifikasi dari sumber lain atau sumber yang dinonaktifkan pengguna dilewati. Ringkasan grup notifikasi juga dilewati.
+- **Alasan:** membatasi pemrosesan pada sumber yang relevan dan menghindari analisis notifikasi aplikasi lain.
+
+### Proses 2 — Parsing Notifikasi
+
+- **Compute:** mengambil judul, subteks, teks, big text, waktu notifikasi, dan informasi pengirim yang tersedia.
+- **Algoritma:** ekstraksi field berdasarkan prioritas sumber data notifikasi.
+- **Cara kerja:** sistem mencoba memperoleh isi dari `MessagingStyle`, `EXTRA_BIG_TEXT`, atau `EXTRA_TEXT`. Pengirim diambil dari informasi pesan, judul, atau subteks sesuai ketersediaannya. Ringkasan seperti “2 new messages” tidak dianggap sebagai isi pesan.
+- **Alasan:** format notifikasi setiap aplikasi dapat berbeda sehingga sistem perlu mengambil informasi yang benar-benar disediakan Android.
+
+### Proses 3 — Normalisasi dan Tokenisasi Teks
+
+- **Compute:** menyeragamkan teks sebelum pencocokan pola dan memecah teks menjadi token.
+- **Algoritma:** case folding, normalisasi whitespace, substitusi karakter umum, dan pemisahan token menggunakan regular expression.
+- **Cara kerja:** teks diubah menjadi huruf kecil, spasi berlebih dirapikan, dan substitusi terbatas seperti `kl1k` menjadi `klik` dilakukan pada pola karakter tertentu. Teks kemudian dipisahkan berdasarkan karakter selain huruf dan angka.
+- **Alasan:** variasi huruf besar-kecil, spasi, dan penyamaran karakter sederhana tidak langsung menggagalkan pencocokan.
+
+### Proses 4 — Pencocokan Keyword Mencurigakan
+
+- **Compute:** mencari satu atau lebih keyword/pola frasa yang telah dikonfigurasi.
+- **Algoritma:** Aho–Corasick multi-pattern string matching.
+- **Cara kerja:** struktur trie dan failure link dibangun dari daftar keyword. Teks diperiksa untuk menemukan pola yang cocok. Hasil duplikat disaring sehingga indikator keyword hanya dihitung satu kali.
+- **Alasan:** beberapa pola dapat dicari dalam satu alur pemindaian teks dan prosesnya deterministik.
+
+### Proses 5 — Ekstraksi URL dan Hostname
+
+- **Compute:** menemukan kandidat URL pada teks dan mengambil hostname dari URL yang valid.
+- **Algoritma:** regular expression untuk ekstraksi URL dan parsing URI untuk memperoleh host.
+- **Cara kerja:** pola URL seperti `https://...`, `www...`, dan domain dengan ekstensi yang didukung dicari. Karakter tanda baca di ujung tautan dibersihkan, kemudian host diambil dan diseragamkan.
+- **Alasan:** pemeriksaan domain memerlukan hostname, bukan hanya keberadaan kata atau tautan dalam pesan.
+
+### Proses 6 — Pemeriksaan Whitelist Domain dan Shortlink
+
+- **Compute:** menentukan apakah host berada di whitelist domain resmi dan apakah host termasuk domain shortlink yang dikenal.
+- **Algoritma:** pencocokan domain tepat atau subdomain terhadap daftar konfigurasi.
+- **Cara kerja:** host dibandingkan dengan daftar domain resmi. Domain dianggap cocok jika sama persis atau merupakan subdomain yang valid. Host juga diperiksa terhadap daftar shortlink seperti `bit.ly` dan `tinyurl.com`.
+- **Alasan:** tautan di luar whitelist dan shortlink merupakan indikator tambahan yang dapat meningkatkan skor risiko. Pemeriksaan ini bukan validasi reputasi URL secara online.
+
+### Proses 7 — Normalisasi dan Pemeriksaan Pengirim
+
+- **Compute:** menyeragamkan identitas pengirim dan membandingkannya dengan daftar pengirim tepercaya lokal.
+- **Algoritma:** normalisasi string dan pencarian keanggotaan pada set.
+- **Cara kerja:** huruf dibuat kecil, karakter pemisah dihapus, dan awalan nomor Indonesia `+62` atau `62` diseragamkan menjadi format `0`. Jika pengirim tersedia tetapi tidak ditemukan dalam daftar tepercaya, indikator pengirim tidak dikenal aktif. Jika identitas kosong, indikator tidak dihitung.
+- **Alasan:** format nomor dapat berbeda, sedangkan pengirim yang tidak tersedia tidak boleh otomatis dianggap tidak dikenal.
+
+### Proses 8 — Deteksi Pola Urgensi
+
+- **Compute:** memeriksa frasa yang menunjukkan tekanan waktu atau dorongan untuk segera bertindak.
+- **Algoritma:** pencocokan substring terhadap daftar pola urgensi setelah normalisasi.
+- **Cara kerja:** sistem memeriksa pola seperti “segera”, “1x24 jam”, “batas waktu”, dan “sebelum terlambat”. Jika satu atau lebih pola ditemukan, indikator urgensi aktif satu kali.
+- **Alasan:** pesan phishing sering menggunakan tekanan waktu untuk mendorong korban bertindak tanpa verifikasi.
+
+### Proses 9 — Deteksi Permintaan Data Sensitif
+
+- **Compute:** memeriksa pola yang berkaitan dengan OTP, PIN, password, kata sandi, nomor kartu, CVV, atau kode verifikasi.
+- **Algoritma:** pencocokan substring terhadap daftar pola data sensitif.
+- **Cara kerja:** teks yang telah dinormalisasi dibandingkan dengan daftar pola. Jika satu atau lebih pola terdeteksi, indikator data sensitif aktif satu kali.
+- **Alasan:** permintaan informasi autentikasi atau keuangan merupakan sinyal risiko yang perlu diperhatikan pengguna.
+
+### Proses 10 — Weighted Scoring dan Klasifikasi
+
+- **Compute:** menjumlahkan bobot indikator aktif dan menentukan kategori akhir.
+- **Algoritma:** weighted rule-based scoring dan threshold classification.
+- **Cara kerja:** bobot setiap indikator yang terdeteksi dijumlahkan. Skor dibandingkan dengan ambang: di bawah 3 = AMAN, 3 sampai kurang dari 6 = MENCURIGAKAN, dan 6 atau lebih = PHISHING. Hasil berisi skor, kategori, tingkat risiko, rincian indikator, URL yang ditemukan, dan versi aturan.
+- **Alasan:** metode ini sederhana, dapat dijelaskan, deterministik, dan sesuai untuk prototipe komputasi lokal.
+
+**Catatan:** penyimpanan hasil ke SQLite dan penampilan pada antarmuka merupakan tahap keluaran/persistensi setelah proses analisis, bukan indikator tambahan dalam sepuluh proses di atas.
+
+## 8. Algoritma Rule-Based Risk Scoring
+
+### 8.1 Indikator dan bobot
+
+| Indikator | Kondisi | Bobot |
+|---|---|---:|
+| Keyword mencurigakan | Terdapat keyword atau frasa dari daftar deteksi | +2 |
+| URL di luar whitelist | Terdapat hostname yang tidak cocok dengan whitelist domain | +3 |
+| Shortlink | Terdapat hostname yang cocok dengan daftar shortlink | +2 |
+| Pengirim tidak dikenal | Identitas pengirim tersedia tetapi tidak ada di daftar tepercaya lokal | +2 |
+| Pola urgensi | Terdapat pola yang mendorong tindakan segera | +1 |
+| Permintaan data sensitif | Terdapat pola seperti OTP, PIN, password, atau data kartu | +3 |
+
+### 8.2 Ambang klasifikasi
+
+- **AMAN:** skor 0–2.
+- **MENCURIGAKAN:** skor 3–5.
+- **PHISHING:** skor 6 atau lebih.
+
+### 8.3 Aturan penghitungan
+
+Setiap indikator menyumbang bobot maksimal satu kali untuk satu pesan, walaupun beberapa pola dalam indikator yang sama ditemukan. Contohnya, beberapa keyword mencurigakan tetap menghasilkan +2, bukan kelipatan +2. Jika identitas pengirim tidak tersedia, indikator pengirim tidak dihitung.
+
+### 8.4 Contoh perhitungan
+
+Pesan contoh pada bagian latar belakang memenuhi keenam indikator:
+
+- Keyword mencurigakan: +2
+- URL di luar whitelist: +3
+- Shortlink: +2
+- Pengirim tidak dikenal: +2
+- Pola urgensi: +1
+- Permintaan data sensitif: +3
+
+**Total skor = 2 + 3 + 2 + 2 + 1 + 3 = 13.** Karena 13 lebih besar atau sama dengan 6, hasilnya adalah **PHISHING (Risiko Tinggi)**.
+
+Skor 13 adalah hasil maksimum dari keenam indikator default yang masing-masing dihitung satu kali.
+
+### 8.5 Pseudocode
+
+```text
+INPUT: message, sender, trusted_senders
+score = 0
+
+normalize message and sender
+extract URLs and hostnames
+
+IF suspicious keyword found:
+    score += 2
+IF any URL host is outside official whitelist:
+    score += 3
+IF any URL host matches known shortlink list:
+    score += 2
+IF sender is available and not in trusted_senders:
+    score += 2
+IF urgency pattern found:
+    score += 1
+IF sensitive-data pattern found:
+    score += 3
+
+IF score >= 6:
+    category = PHISHING
+ELSE IF score >= 3:
+    category = MENCURIGAKAN
+ELSE:
+    category = AMAN
+
+OUTPUT: score, category, detected features, explanations
+```
+
+## 9. Preprocessing dan Ekstraksi Fitur
+
+Preprocessing dilakukan agar teks lebih seragam sebelum diperiksa:
+
+1. **Case folding:** mengubah huruf menjadi huruf kecil.
+2. **Normalisasi spasi:** merapikan spasi atau baris baru berlebih.
+3. **Normalisasi karakter terbatas:** mengganti beberapa substitusi umum di antara huruf, misalnya `kl1k` menjadi `klik`.
+4. **Tokenisasi:** memisahkan teks menjadi token berdasarkan karakter nonhuruf dan nonangka.
+5. **Ekstraksi URL:** mengambil kandidat tautan menggunakan regex, kemudian parsing host.
+6. **Normalisasi pengirim:** menyeragamkan karakter identitas dan format awalan nomor Indonesia.
+
+Pencocokan keyword menggunakan Aho–Corasick. Pola urgensi dan data sensitif diperiksa dengan pencocokan substring terhadap daftar konfigurasi. Metode ini berbasis aturan; ia tidak memahami konteks bahasa secara penuh. Karena itu, hasil dapat berupa false positive atau false negative.
+
+## 10. Integrasi SMS, WhatsApp, dan Jaringan Wireless
+
+### SMS
+
+SMS diterima perangkat melalui layanan jaringan seluler. Pada implementasi ini, MIVVI SECURE tidak menjadi aplikasi SMS default dan tidak membaca database SMS melalui izin `READ_SMS` atau `RECEIVE_SMS`. Aplikasi memanfaatkan notifikasi dari aplikasi SMS yang didukung setelah pengguna memberikan Notification Access.
+
+### WhatsApp
+
+WhatsApp mengirimkan notifikasi melalui koneksi internet, baik data seluler maupun Wi-Fi. MIVVI SECURE memanfaatkan notifikasi WhatsApp/WhatsApp Business yang ditampilkan Android. Aplikasi tidak terhubung ke database privat WhatsApp dan tidak memakai companion bot atau sesi WhatsApp terpisah.
+
+### Kaitan dengan Mobile & Wireless Computing
+
+- SMS dan WhatsApp memanfaatkan jalur komunikasi wireless yang berbeda: layanan seluler untuk SMS dan koneksi data untuk WhatsApp.
+- Event notifikasi diterima pada perangkat Android.
+- Ekstraksi fitur, pencocokan aturan, penghitungan skor, dan klasifikasi dilakukan secara lokal di perangkat.
+- Rules API hanya mendistribusikan konfigurasi aturan; API bukan jalur pengiriman pesan untuk dianalisis.
+- Analisis lokal mengurangi ketergantungan pada koneksi internet saat proses pemeriksaan pesan. Sinkronisasi konfigurasi tetap membutuhkan jaringan.
+
+### Izin Android
+
+- `BIND_NOTIFICATION_LISTENER_SERVICE`: dideklarasikan oleh service dan diaktifkan pengguna melalui pengaturan Android.
+- `INTERNET`: digunakan untuk sinkronisasi Rules API opsional.
+- Aplikasi tidak meminta izin `READ_SMS`, `RECEIVE_SMS`, `READ_CONTACTS`, kamera, mikrofon, atau lokasi.
+
+## 11. Rules API
+
+Rules API dibuat menggunakan FastAPI dan berfungsi menyediakan konfigurasi aturan deteksi yang dapat diperbarui. API bukan mesin analisis pesan.
+
+### Endpoint
+
+| Method | Endpoint | Fungsi |
+|---|---|---|
+| GET | `/api/v1/health` | Memeriksa status layanan |
+| GET | `/api/v1/rules` | Mengambil konfigurasi aturan deteksi |
+
+Konfigurasi berisi:
+
+- `version`: versi aturan.
+- `weights`: bobot keenam indikator.
+- `thresholds`: batas kategori MENCURIGAKAN dan PHISHING.
+- `keywords`: daftar keyword mencurigakan.
+- `urgency_patterns`: daftar pola urgensi.
+- `sensitive_patterns`: daftar pola data sensitif.
+- `official_domains`: whitelist domain.
+- `shortlink_domains`: daftar domain shortlink.
+
+Android mengambil konfigurasi dengan request `GET /api/v1/rules`, mem-parsing JSON, lalu menyimpan konfigurasi di `SharedPreferences`. Jika API tidak tersedia atau konfigurasi gagal dibaca, aplikasi menggunakan aturan default lokal.
+
+**Batas data:** implementasi API tidak menerima isi pesan, nomor/identitas pengirim, payload notifikasi, atau riwayat analisis. API hanya mengirim konfigurasi aturan ke aplikasi.
+
+## 12. Database dan Riwayat Analisis
+
+Aplikasi menggunakan SQLite melalui `SQLiteOpenHelper` dengan nama database `mivvi_secure.db` dan tabel `analyses`. Kolom yang disimpan meliputi:
+
+- ID catatan.
+- Sumber pesan (SMS/WhatsApp/manual sesuai alur aplikasi).
+- Identitas pengirim yang tersedia.
+- Isi pesan jika tersedia.
+- Waktu notifikasi/analisis.
+- Skor dan kategori.
+- Rincian fitur yang terdeteksi.
+- Penanda data demo.
+- Package name sumber notifikasi.
+
+Database berada pada penyimpanan privat aplikasi. **Database lokal belum dienkripsi secara khusus oleh implementasi ini.** Pengguna dapat melihat dan menghapus riwayat melalui antarmuka aplikasi. Jangan gunakan pesan pribadi atau sensitif sebagai data demonstrasi publik.
+
+## 13. Panduan Halaman Aplikasi
+
+Nama dan pengelompokan layar pada implementasi Android dapat berbeda dari nomor halaman pada rancangan Figma. Beberapa halaman Figma diwujudkan sebagai state, dialog, atau bagian dari layar induk.
+
+- **Welcome / Guest:** halaman awal untuk masuk sebagai tamu atau membuka UI autentikasi.
+- **Login / Sign Up / Forgot Password:** antarmuka rancangan; belum terhubung ke autentikasi backend.
+- **Beranda:** ringkasan dan akses ke fitur utama.
+- **Hubungkan Notifikasi:** petunjuk untuk membuka pengaturan Notification Access Android.
+- **Analisis Manual:** input pesan dan pengirim opsional untuk diuji.
+- **Hasil Analisis:** skor, kategori, rincian indikator, dan penjelasan.
+- **Aktivitas Notifikasi:** daftar catatan notifikasi yang terdeteksi.
+- **Riwayat Analisis:** daftar hasil yang tersimpan, termasuk akses detail.
+- **Edukasi Keamanan:** materi edukasi dan dialog artikel.
+- **Pengaturan:** preferensi sumber notifikasi, pengirim tepercaya, alamat API, dan sinkronisasi aturan.
+
+## 14. Teknologi dan Struktur Proyek
+
+### Teknologi
+
+- **Kotlin:** bahasa pemrograman aplikasi Android.
+- **Android SDK:** akses antarmuka Android, notifikasi, pengaturan, dan komponen aplikasi.
+- **NotificationListenerService:** menerima event notifikasi setelah izin pengguna diberikan.
+- **Aho–Corasick:** pencocokan banyak keyword.
+- **Regular Expression (Regex):** normalisasi pola, ekstraksi URL, dan deteksi frasa.
+- **SQLite:** penyimpanan lokal riwayat analisis.
+- **SharedPreferences:** penyimpanan preferensi dan cache konfigurasi aturan.
+- **Python + FastAPI:** backend opsional untuk menyediakan Rules API.
+- **JSON:** format konfigurasi aturan.
+
+### Struktur repository
 
 ```text
 MIVVI-SECURE/
-├── app/                         # Aplikasi Android Kotlin
+├── app/
+│   ├── build.gradle.kts
 │   └── src/main/
 │       ├── java/id/ac/um/mivvisecure/
 │       │   ├── MainActivity.kt
@@ -81,60 +449,69 @@ MIVVI-SECURE/
 │       │   └── AppPrefs.kt
 │       ├── res/
 │       └── AndroidManifest.xml
-├── server/                      # FastAPI Rules API
+├── server/
 │   ├── app/main.py
 │   ├── config/rules.json
 │   └── requirements.txt
-├── docs/                        # Dokumentasi rancangan dan API
-├── tests/                       # Smoke test algoritma Kotlin
-└── scripts/                     # Script pengujian dan build
+├── docs/
+│   ├── API.md
+│   ├── ARCHITECTURE.md
+│   └── PROTOTYPE_ALIGNMENT.md
+├── tests/
+│   └── RuleSmokeTest.kt
+├── scripts/
+│   ├── build-apk.sh
+│   └── run-rule-tests.sh
+└── .github/workflows/android-apk.yml
 ```
 
-## Menjalankan aplikasi Android
+## 15. Instalasi dan Menjalankan Aplikasi
 
 ### Persyaratan
 
-- Android Studio versi yang mendukung Android Gradle Plugin 8.7.3.
+- Android Studio yang mendukung Android Gradle Plugin 8.7.3.
 - JDK 17.
 - Android SDK Platform 35 dan Android Build Tools yang sesuai.
-- Gradle 8.9.
-- Perangkat Android 8.0 (API 26) atau lebih baru.
+- Gradle 8.9 (wrapper/toolchain sesuai konfigurasi proyek).
+- Perangkat Android 8.0 (API 26) atau lebih baru, atau emulator.
 
-### Build dengan Android Studio
+### Build melalui Android Studio
 
-1. Ekstrak repository ini.
-2. Buka Android Studio → **Open** → pilih folder `MIVVI-SECURE`.
-3. Pastikan Gradle JDK menggunakan JDK 17 dan SDK Platform 35 sudah terpasang.
+1. Ekstrak repository.
+2. Buka Android Studio, pilih **Open**, lalu pilih folder `MIVVI-SECURE`.
+3. Pastikan Gradle JDK menggunakan JDK 17 dan SDK Platform 35 tersedia.
 4. Jalankan **Sync Project with Gradle Files**.
-5. Hubungkan ponsel Android dengan USB debugging aktif atau gunakan emulator.
-6. Pilih konfigurasi `app`, lalu tekan **Run**.
-7. Untuk membuat APK: **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
-8. APK debug akan dibuat di `app/build/outputs/apk/debug/app-debug.apk`.
+5. Hubungkan perangkat Android dengan USB debugging aktif atau jalankan emulator.
+6. Pilih konfigurasi `app`, kemudian tekan **Run**.
+7. Untuk membuat APK, pilih **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+8. Jika build berhasil, APK debug berada di `app/build/outputs/apk/debug/app-debug.apk`.
 
-**Alternatif tanpa memasang Android SDK di komputer:** repository sudah menyertakan GitHub Actions workflow di `.github/workflows/android-apk.yml`. Setelah source di-push ke branch `main`, buka tab **Actions** pada repository GitHub, pilih workflow **Build MIVVI SECURE APK**, buka hasil run yang sukses, lalu unduh artifact `MIVVI-SECURE-debug-apk`. Workflow juga dapat dijalankan manual melalui **Actions → Build MIVVI SECURE APK → Run workflow**. Artifact berupa debug APK untuk pengujian.
+### Build APK melalui GitHub Actions
 
-Alternatif melalui terminal (setelah Gradle 8.9 dan Android SDK terpasang):
+Repository menyertakan workflow `.github/workflows/android-apk.yml`.
 
-```bash
-gradle assembleDebug
-```
+1. Buat repository GitHub dan push seluruh source code.
+2. Buka tab **Actions**.
+3. Pilih workflow **Build MIVVI SECURE APK**.
+4. Jalankan workflow melalui push ke branch yang dikonfigurasi atau pilih **Run workflow** jika tersedia.
+5. Setelah proses berhasil, buka hasil workflow dan unduh artifact `MIVVI-SECURE-debug-apk`.
 
-File debug APK akan berada di `app/build/outputs/apk/debug/app-debug.apk`. Debug APK ditandatangani dengan debug keystore dan cocok untuk instalasi/pengujian, bukan untuk distribusi Play Store.
+Artifact workflow adalah debug APK untuk pengujian, bukan paket rilis Play Store.
 
-### Mengaktifkan integrasi notifikasi
+### Mengaktifkan akses notifikasi
 
-1. Buka MIVVI SECURE.
-2. Pilih **Hubungkan Notifikasi** atau masuk ke Pengaturan.
-3. Tekan **Buka Pengaturan Akses Android**.
+1. Jalankan MIVVI SECURE.
+2. Buka fitur **Hubungkan Notifikasi** atau Pengaturan.
+3. Tekan tombol untuk membuka pengaturan akses notifikasi Android.
 4. Cari **MIVVI SECURE Notification Access**, lalu aktifkan izin.
-5. Kembali ke aplikasi. Aktifkan/ nonaktifkan sumber WhatsApp dan Aplikasi SMS sesuai kebutuhan.
-6. Kirim pesan uji ke perangkat. Hanya pratinjau yang tampil di notifikasi yang dapat diperiksa.
+5. Kembali ke aplikasi dan pilih apakah sumber WhatsApp dan/atau SMS ingin dipantau.
+6. Uji menggunakan pesan yang aman dan tidak memuat informasi pribadi.
 
-## Menjalankan Rules API
+Hanya isi yang benar-benar ditampilkan pada pratinjau notifikasi yang dapat dianalisis.
 
-API bersifat opsional. Aplikasi tetap melakukan analisis dengan aturan lokal jika API tidak dikonfigurasi atau sedang tidak tersedia.
+### Menjalankan Rules API (opsional)
 
-### Persiapan backend
+Dari direktori proyek:
 
 ```bash
 cd server
@@ -150,72 +527,79 @@ pip install -r requirements.txt
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Cek API:
+Uji endpoint:
 
 ```bash
 curl http://127.0.0.1:8000/api/v1/health
 curl http://127.0.0.1:8000/api/v1/rules
 ```
 
-Dokumentasi interaktif tersedia di `http://127.0.0.1:8000/docs`.
+Dokumentasi interaktif FastAPI tersedia di `http://127.0.0.1:8000/docs`.
 
-### Hubungkan Android ke API
+Untuk menghubungkan ponsel dan server, pastikan keduanya berada pada jaringan Wi-Fi/LAN yang sama. Jalankan server pada host `0.0.0.0`, izinkan port 8000 pada firewall, lalu masukkan alamat IP LAN komputer pada Pengaturan → Integrasi Data (API) di aplikasi. Untuk emulator Android, alamat host komputer biasanya diakses melalui `10.0.2.2`. Jika sinkronisasi gagal, aplikasi tetap menggunakan aturan lokal.
 
-1. Pastikan ponsel dan komputer berada di jaringan Wi-Fi/LAN yang sama.
-2. Cari alamat IP lokal komputer, misalnya `192.168.1.10`.
-3. Jalankan API dengan `--host 0.0.0.0` dan izinkan port 8000 pada firewall lokal.
-4. Di MIVVI SECURE → Pengaturan → Integrasi Data (API), masukkan `http://192.168.1.10:8000`.
-5. Tekan **Simpan Pengaturan & Sinkronkan Aturan**.
-6. Jika sinkronisasi gagal, aplikasi tetap memakai aturan lokal bawaan.
+HTTP hanya digunakan untuk pengembangan pada jaringan lokal. Deployment publik memerlukan HTTPS serta pengamanan endpoint dan proses perubahan konfigurasi.
 
-Alamat `10.0.2.2` digunakan emulator Android untuk mengakses host komputer; pada ponsel fisik gunakan IP LAN komputer. HTTP hanya untuk pengembangan di jaringan lokal. Gunakan HTTPS, autentikasi, dan kontrol perubahan konfigurasi sebelum deployment publik.
+## 16. Pengujian dan Status Implementasi
 
-## Dokumentasi API
+### Menjalankan smoke test aturan
 
-- `GET /api/v1/health` — status layanan.
-- `GET /api/v1/rules` — konfigurasi versioned yang berisi `weights`, `thresholds`, `keywords`, `urgency_patterns`, `sensitive_patterns`, `official_domains`, dan `shortlink_domains`.
-
-Contoh response tersedia di `server/config/rules.json`. Untuk memperbarui aturan, edit file tersebut lalu restart/reload server. Aplikasi mengambil konfigurasi dan menyimpannya pada perangkat; pesan pengguna tetap dianalisis lokal.
-
-## Pengujian aturan
-
-Dengan Kotlin compiler terpasang:
+Dengan Kotlin compiler tersedia, jalankan:
 
 ```bash
 ./scripts/run-rule-tests.sh
 ```
 
-Skrip memverifikasi contoh skor 13 (PHISHING) serta ambang AMAN dan MENCURIGAKAN.
+Smoke test mencakup contoh skor 13 (PHISHING) dan pengujian ambang kategori AMAN serta MENCURIGAKAN.
 
-## Mengunggah ke GitHub
-
-Buat repository kosong, lalu jalankan dari folder proyek:
-
-```bash
-git init
-git add .
-git commit -m "Initial MIVVI SECURE Android prototype"
-git branch -M main
-git remote add origin https://github.com/USERNAME/MIVVI-SECURE.git
-git push -u origin main
-```
-
-Ganti `USERNAME` dan URL dengan repository GitHub milikmu. Jangan unggah data pesan asli, keystore pribadi, password, token, atau file konfigurasi rahasia.
-
-## Catatan status implementasi
+### Status komponen
 
 | Komponen | Status |
 |---|---|
-| Rule-based analyzer Kotlin | Implemented; smoke test pass |
-| Analisis manual | Implemented |
-| Database riwayat lokal | Implemented |
-| NotificationListenerService SMS/WhatsApp | Implemented, requires Android access and visible notification preview |
-| Sinkronisasi konfigurasi Rules API | Implemented |
-| Login/Sign Up/Forgot Password UI | Prototype UI only; no authentication backend |
-| Enkripsi database lokal | Not implemented |
-| Auto-block / auto-delete / background interception of private chats | Not implemented |
-| APK binary | Not built in this environment; local build steps and GitHub Actions workflow provided |
+| Rule-based analyzer Kotlin | Diimplementasikan; smoke test aturan tersedia |
+| Analisis manual | Diimplementasikan |
+| SQLite untuk riwayat | Diimplementasikan |
+| NotificationListenerService | Diimplementasikan; memerlukan izin Android dan pratinjau notifikasi yang terlihat |
+| Sinkronisasi Rules API | Diimplementasikan |
+| Login/Sign Up/Forgot Password | UI prototype; autentikasi backend belum ada |
+| Enkripsi database lokal | Belum diimplementasikan |
+| Auto-block / auto-delete pesan | Tidak diimplementasikan |
+| Akses database privat WhatsApp | Tidak diimplementasikan |
+| APK binary siap instalasi | Belum tersedia dari lingkungan pembuatan ini |
 
-## Lisensi dan penggunaan
+Status smoke test algoritma tidak sama dengan pengujian menyeluruh pada semua perangkat Android. Build APK, pemasangan fisik, kompatibilitas semua aplikasi SMS, dan perilaku notifikasi pada berbagai versi Android masih perlu diuji.
 
-Prototype akademik. Tinjau domain whitelist, pola deteksi, privasi, keamanan API, dan kompatibilitas perangkat sebelum penggunaan di luar pengujian.
+## 17. Privasi, Keamanan, dan Batasan
+
+1. Akses notifikasi hanya aktif setelah pengguna mengizinkannya melalui pengaturan Android.
+2. Aplikasi hanya memproses paket aplikasi yang tercantum dan dipilih pengguna.
+3. Isi pesan dianalisis dari pratinjau notifikasi. Jika pratinjau disembunyikan, konten tidak tersedia dan tidak dibuat-buat.
+4. Isi pesan dan riwayat disimpan di SQLite lokal agar dapat ditampilkan kembali.
+5. Kode Rules API hanya mengambil konfigurasi aturan; tidak mengunggah isi pesan, identitas pengirim, payload notifikasi, atau riwayat analisis.
+6. Database SQLite belum dienkripsi secara khusus. Perlindungan penyimpanan mengikuti mekanisme sandbox Android, tetapi hal itu bukan klaim enkripsi database aplikasi.
+7. Whitelist domain bawaan merupakan daftar awal/contoh dan perlu diverifikasi serta diperbarui dari sumber resmi sebelum penggunaan lebih luas.
+8. Daftar pengirim tepercaya bersifat lokal dan bergantung pada input pengguna; status tepercaya bukan bukti bahwa pengirim benar-benar resmi.
+9. Sistem tidak melakukan pemeriksaan reputasi URL secara online, tidak membuka tautan, dan tidak menjamin deteksi seluruh variasi phishing.
+10. Kategori AMAN berarti indikator yang dikonfigurasi tidak mencapai ambang risiko, bukan jaminan pesan tersebut aman.
+11. Sistem tidak memblokir, menghapus, atau mencegah pesan masuk. Keputusan akhir tetap berada pada pengguna.
+
+## 18. Pengembangan Selanjutnya
+
+Pengembangan berikutnya yang dapat dipertimbangkan:
+
+- Memperluas dan mengevaluasi daftar keyword, pola urgensi, pola data sensitif, whitelist, dan shortlink dari sumber tepercaya.
+- Menguji dengan dataset pesan phishing dan pesan normal yang berlabel, kemudian mengukur accuracy, precision, recall, dan F1-score.
+- Mengembangkan pengelolaan aturan dengan validasi, autentikasi, HTTPS, dan audit perubahan sebelum API dipublikasikan.
+- Menambahkan perlindungan enkripsi untuk data riwayat lokal dan kebijakan retensi data.
+- Menguji kompatibilitas NotificationListenerService pada berbagai perangkat, versi Android, dan aplikasi SMS.
+- Mengkaji metode machine learning seperti Naive Bayes atau SVM sebagai pengembangan penelitian terpisah, setelah tersedia dataset berlabel yang memadai.
+- Mengkaji integrasi layanan reputasi URL melalui API dengan memperhatikan privasi dan keamanan data.
+- Mengembangkan autentikasi akun hanya jika benar-benar diperlukan, disertai backend dan pengelolaan kredensial yang aman.
+
+Pengembangan tersebut merupakan rencana, bukan fitur yang sudah tersedia pada versi source code ini.
+
+---
+
+## Lisensi dan Penggunaan
+
+Proyek ini merupakan prototipe akademik. Tinjau ulang aturan deteksi, whitelist, privasi, keamanan API, dan kompatibilitas perangkat sebelum digunakan di luar lingkungan pengujian. Gunakan data sintetis atau data yang telah dianonimkan untuk demonstrasi.

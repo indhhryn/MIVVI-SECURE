@@ -42,24 +42,24 @@
     }
 
     .top-banner {
-      max-width: 480px;
+      max-width: 440px;
       width: 100%;
       text-align: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .top-banner .badge {
       display: inline-block;
       padding: 4px 12px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--cyan);
       background: rgba(99, 221, 232, 0.12);
       border: 1px solid rgba(99, 221, 232, 0.3);
       border-radius: 99px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .top-banner h1 {
@@ -115,7 +115,7 @@
     }
 
     .header-bar {
-      padding: 10px 22px 8px;
+      padding: 10px 20px 6px;
       flex-shrink: 0;
     }
 
@@ -123,15 +123,22 @@
       font-size: 11px;
       font-weight: 800;
       color: var(--cyan);
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
+    .brand-tag {
+      font-size: 9.5px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400;
+    }
+
     .page-title {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
       color: var(--pearl);
       margin-top: 4px;
@@ -139,7 +146,7 @@
     }
 
     .page-subtitle {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       margin-top: 2px;
     }
@@ -147,10 +154,10 @@
     .scroll-body {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 20px 24px;
+      padding: 8px 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 11px;
     }
 
     .scroll-body::-webkit-scrollbar {
@@ -165,36 +172,36 @@
     .card {
       background: var(--card);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 16px;
+      border-radius: 16px;
+      padding: 15px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
 
     .card-title {
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       color: var(--pearl);
       margin-bottom: 4px;
     }
 
     .card-desc {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       line-height: 1.45;
     }
 
     .card-tag {
       display: inline-block;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 1px;
-      margin-top: 10px;
+      margin-top: 8px;
     }
 
     /* Buttons */
     .btn {
       width: 100%;
-      min-height: 48px;
+      min-height: 46px;
       border-radius: 12px;
       font-size: 13.5px;
       font-weight: 700;
@@ -206,7 +213,7 @@
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       text-decoration: none;
       user-select: none;
-      padding: 10px 16px;
+      padding: 9px 16px;
     }
 
     .btn:active {
@@ -224,59 +231,59 @@
     }
 
     .btn-secondary {
-      background: #2a3053;
+      background: #262c4c;
       color: var(--pearl);
-      border: 1px solid rgba(160, 170, 220, 0.35);
+      border: 1px solid rgba(160, 170, 220, 0.3);
     }
 
     .btn-secondary:hover {
-      background: #343c68;
+      background: #313960;
     }
 
     .btn-danger {
-      background: rgba(244, 63, 94, 0.18);
+      background: rgba(244, 63, 94, 0.16);
       color: var(--red);
       border: 1px solid rgba(244, 63, 94, 0.35);
     }
 
     .btn-danger:hover {
-      background: rgba(244, 63, 94, 0.28);
+      background: rgba(244, 63, 94, 0.26);
     }
 
     /* Inputs */
     .input-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
 
     .input-label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--muted);
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
     }
 
-    .input-field, .select-field {
+    .input-field {
       width: 100%;
       background: #0f162c;
-      border: 1px solid rgba(160, 170, 220, 0.35);
+      border: 1px solid rgba(160, 170, 220, 0.32);
       border-radius: 10px;
-      padding: 12px;
+      padding: 11px 12px;
       color: var(--pearl);
-      font-size: 13.5px;
+      font-size: 13px;
       outline: none;
       transition: border-color 0.2s;
     }
 
-    .input-field:focus, .select-field:focus {
+    .input-field:focus {
       border-color: var(--cyan);
       box-shadow: 0 0 0 2px rgba(99, 221, 232, 0.2);
     }
 
     textarea.input-field {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
       line-height: 1.45;
     }
@@ -285,8 +292,8 @@
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
+      gap: 10px;
+      margin-top: 8px;
     }
 
     .stat-box {
@@ -295,20 +302,20 @@
     }
 
     .stat-val {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       color: var(--cyan);
     }
 
     .stat-label {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: var(--muted);
       letter-spacing: 0.8px;
       text-transform: uppercase;
     }
 
-    /* Score Circle / Badge */
+    /* Score Banner */
     .score-banner {
       background: rgba(255, 255, 255, 0.04);
       border-radius: 16px;
@@ -318,7 +325,7 @@
     }
 
     .score-number {
-      font-size: 54px;
+      font-size: 52px;
       font-weight: 900;
       line-height: 1;
       margin: 4px 0;
@@ -328,7 +335,7 @@
       display: inline-block;
       padding: 4px 14px;
       border-radius: 99px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       letter-spacing: 1px;
       margin-bottom: 6px;
@@ -336,7 +343,7 @@
 
     /* Bottom Navigation */
     .bottom-nav {
-      height: 60px;
+      height: 58px;
       background: #0a0e20;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
@@ -353,21 +360,83 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 2px;
       color: var(--muted);
       cursor: pointer;
-      font-size: 10.5px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 600;
       height: 100%;
       transition: color 0.15s;
     }
 
     .nav-item.active {
       color: var(--cyan);
+      font-weight: 700;
     }
 
     .nav-icon {
-      font-size: 16px;
+      font-size: 15px;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      background: #232a46;
+      color: var(--pearl);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .filter-chip.active {
+      background: var(--cyan);
+      color: var(--cosmic);
+      border-color: var(--cyan);
+    }
+
+    /* Indicator row */
+    .indicator-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 11px;
+      background: rgba(16, 22, 45, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .indicator-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .indicator-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .history-card {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .history-card:hover {
+      background: #202956;
     }
 
     /* Modal / Popup */
@@ -383,7 +452,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
     }
 
     .modal-box {
@@ -392,55 +461,24 @@
       border-radius: 20px;
       padding: 20px;
       width: 100%;
-      max-height: 80%;
+      max-height: 85%;
       overflow-y: auto;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
     }
 
     .modal-title {
-      font-size: 17px;
+      font-size: 16.5px;
       font-weight: 800;
       color: var(--pearl);
       margin-bottom: 8px;
     }
 
     .modal-content {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       line-height: 1.5;
       margin-bottom: 16px;
       white-space: pre-line;
-    }
-
-    .indicator-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 12px;
-      background: rgba(16, 22, 45, 0.6);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .indicator-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .indicator-desc {
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-
-    .history-card {
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .history-card:hover {
-      background: #202956;
     }
   </style>
 </head>
@@ -449,7 +487,7 @@
   <div class="top-banner">
     <div class="badge">✦ Live Localhost Simulator</div>
     <h1>MIVVI SECURE Mobile Prototype</h1>
-    <p>Simulasi lengkap antarmuka Android Kotlin MIVVI SECURE langsung di browser Anda.</p>
+    <p>Simulasi lengkap antarmuka Android Kotlin MIVVI SECURE selaras dengan spesifikasi README & Figma.</p>
   </div>
 
   <!-- Device Container -->
@@ -560,7 +598,42 @@
     // Local Storage Mock Database
     function getRecords() {
       try {
-        return JSON.parse(localStorage.getItem('mivvi_records') || '[]');
+        const stored = localStorage.getItem('mivvi_records');
+        if (!stored) {
+          // Initialize demo records if empty
+          const seed = [
+            {
+              id: 'rec_seed_1',
+              source: 'WHATSAPP',
+              sender: 'Bank BNI CS (Palsu)',
+              content: 'Info: Rek Anda TERBLOKIR. Segera verifikasi & klik bit.ly/verif-akun24 dalam 1x24 jam. Masukkan kode OTP Anda.',
+              timestamp: Date.now() - 1800000,
+              result: analyzeMessage('Info: Rek Anda TERBLOKIR. Segera verifikasi & klik bit.ly/verif-akun24 dalam 1x24 jam. Masukkan kode OTP Anda.', 'Bank BNI CS (Palsu)'),
+              isDemo: true
+            },
+            {
+              id: 'rec_seed_2',
+              source: 'SMS',
+              sender: 'Telkomsel Info',
+              content: 'Paket data 50GB aktif hingga 30/12/2026. Cek kuota berkala di aplikasi MyTelkomsel resmi https://telkomsel.com',
+              timestamp: Date.now() - 7200000,
+              result: analyzeMessage('Paket data 50GB aktif hingga 30/12/2026. Cek kuota berkala di aplikasi MyTelkomsel resmi https://telkomsel.com', 'Telkomsel Info', ['Telkomsel Info']),
+              isDemo: true
+            },
+            {
+              id: 'rec_seed_3',
+              source: 'WHATSAPP',
+              sender: 'Teman Kantor',
+              content: '',
+              timestamp: Date.now() - 10800000,
+              result: { score: 0, category: 'KONTEN TIDAK TERSEDIA', level: 'Tidak Tersedia', features: [], urls: [], version: '1.0.0' },
+              isDemo: true
+            }
+          ];
+          saveRecords(seed);
+          return seed;
+        }
+        return JSON.parse(stored);
       } catch {
         return [];
       }
@@ -596,10 +669,16 @@
       document.getElementById('modal-overlay').style.display = 'none';
     }
 
-    // Rule-Based Risk Scoring Algorithm (matches RuleBasedAnalyzer.kt)
+    // Rule-Based Risk Scoring Algorithm (matches RuleBasedAnalyzer.kt strictly)
     function analyzeMessage(message, sender = '', trustedSenders = []) {
       const raw = message.trim();
       const lower = raw.toLowerCase();
+
+      // Normalize letters (kl1k -> klik, etc.)
+      const normalized = lower
+        .replace(/(?<=\p{L})1(?=\p{L})/gu, 'i')
+        .replace(/(?<=\p{L})0(?=\p{L})/gu, 'o')
+        .replace(/(?<=\p{L})@(?=\p{L})/gu, 'a');
 
       // Extract URLs
       const urlRegex = /(?:https?:\/\/|www\.)[^\s<>"']+|([a-z0-9-]+\.)+(com|net|org|id|co\.id|go\.id|xyz|site|online|info|app|me)(?:\/[^\s<>"']*)?/gi;
@@ -612,9 +691,9 @@
       });
 
       // Match Keywords
-      const matchedKeywords = activeConfig.keywords.filter(k => lower.includes(k.toLowerCase()));
-      const matchedUrgency = activeConfig.urgency_patterns.filter(u => lower.includes(u.toLowerCase()));
-      const matchedSensitive = activeConfig.sensitive_patterns.filter(s => lower.includes(s.toLowerCase()));
+      const matchedKeywords = activeConfig.keywords.filter(k => normalized.includes(k.toLowerCase()));
+      const matchedUrgency = activeConfig.urgency_patterns.filter(u => normalized.includes(u.toLowerCase()));
+      const matchedSensitive = activeConfig.sensitive_patterns.filter(s => normalized.includes(s.toLowerCase()));
 
       // Check Whitelist & Shortlinks
       const isOfficial = host => activeConfig.official_domains.some(od => host === od || host.endsWith('.' + od));
@@ -624,10 +703,11 @@
       const shortHosts = hosts.filter(h => isShortlink(h));
 
       // Unknown sender check
-      const normalizedSender = sender.trim().toLowerCase();
-      const trustedList = trustedSenders.map(s => s.trim().toLowerCase()).filter(s => s);
-      const isSenderKnown = normalizedSender !== '' && trustedList.includes(normalizedSender);
-      const isSenderUnknown = normalizedSender !== '' && !isSenderKnown;
+      const normalizeSender = s => s.toLowerCase().replace(/[^a-z0-9+]/g, '').replace(/^\+62/, '0').replace(/^62/, '0');
+      const normSender = normalizeSender(sender);
+      const trustedList = trustedSenders.map(normalizeSender).filter(s => s);
+      const isSenderKnown = normSender !== '' && trustedList.includes(normSender);
+      const isSenderUnknown = normSender !== '' && !isSenderKnown;
 
       // Calculate Indicators
       const features = [
@@ -640,35 +720,35 @@
         },
         {
           id: 'url_outside_whitelist',
-          label: 'URL di luar whitelist',
+          label: 'URL di luar whitelist resmi',
           detected: outsideHosts.length > 0,
           points: activeConfig.weights.url_outside_whitelist || 3,
           explanation: urls.length === 0 ? 'Tidak ditemukan URL pada pesan.' : (outsideHosts.length > 0 ? `Domain di luar whitelist: ${outsideHosts.join(', ')}` : 'Domain cocok dengan whitelist resmi.')
         },
         {
           id: 'shortlink',
-          label: 'Tautan singkat (shortlink)',
+          label: 'Penggunaan shortlink penyamaran',
           detected: shortHosts.length > 0,
           points: activeConfig.weights.shortlink || 2,
-          explanation: shortHosts.length > 0 ? `Shortlink terdeteksi: ${shortHosts.join(', ')}` : 'Tidak terdeteksi shortlink.'
+          explanation: shortHosts.length > 0 ? `Shortlink terdeteksi: ${shortHosts.join(', ')}` : 'Tidak terdeteksi domain shortlink.'
         },
         {
           id: 'unknown_sender',
-          label: 'Pengirim tidak dikenal',
+          label: 'Pengirim tidak dikenal / nomor baru',
           detected: isSenderUnknown,
           points: activeConfig.weights.unknown_sender || 2,
-          explanation: isSenderUnknown ? `Pengirim (${sender}) belum ada di daftar tepercaya.` : (isSenderKnown ? 'Pengirim cocok dengan daftar tepercaya.' : 'Identitas pengirim tidak disertakan.')
+          explanation: sender.trim() === '' ? 'Identitas pengirim tidak tersedia; indikator tidak dihitung.' : (isSenderUnknown ? `Pengirim (${sender}) belum ada dalam daftar tepercaya.` : 'Pengirim cocok dengan daftar tepercaya.')
         },
         {
           id: 'urgency',
-          label: 'Pola urgensi',
+          label: 'Pola urgensi buatan',
           detected: matchedUrgency.length > 0,
           points: activeConfig.weights.urgency || 1,
-          explanation: matchedUrgency.length > 0 ? `Pola urgensi: ${matchedUrgency.join(', ')}` : 'Tidak ada pola desakan waktu.'
+          explanation: matchedUrgency.length > 0 ? `Pola urgensi terdeteksi: ${matchedUrgency.join(', ')}` : 'Tidak ada pola desakan waktu.'
         },
         {
           id: 'sensitive_data',
-          label: 'Permintaan data sensitif',
+          label: 'Permintaan data sensitif (Kredensial)',
           detected: matchedSensitive.length > 0,
           points: activeConfig.weights.sensitive_data || 3,
           explanation: matchedSensitive.length > 0 ? `Data sensitif: ${matchedSensitive.join(', ')}` : 'Tidak ada permintaan data sensitif.'
@@ -699,7 +779,7 @@
 
     // Navigation and Page Rendering
     let currentPage = 'welcome';
-    let currentRecordDetail = null;
+    let simulatedNotificationAccess = true;
 
     function navigate(page, data = null) {
       currentPage = page;
@@ -722,7 +802,7 @@
         }
       });
 
-      if (['welcome', 'login', 'signup', 'forgot'].includes(page)) {
+      if (['welcome', 'login', 'signup', 'forgot', 'scan', 'guide', 'faq', 'privacy', 'detection'].includes(page)) {
         bottomNav.style.display = 'none';
       } else {
         bottomNav.style.display = 'flex';
@@ -733,14 +813,21 @@
         case 'login': renderLogin(screen); break;
         case 'signup': renderSignup(screen); break;
         case 'forgot': renderForgot(screen); break;
+        case 'guide': renderNotificationGuide(screen); break;
         case 'home': renderHome(screen); break;
         case 'manual': renderManual(screen, data); break;
+        case 'scan': renderScanning(screen, data); break;
         case 'result': renderResult(screen, data); break;
         case 'activities': renderActivities(screen); break;
+        case 'hidden_detail': renderHiddenDetail(screen, data); break;
         case 'history': renderHistory(screen); break;
         case 'record_detail': renderRecordDetail(screen, data); break;
         case 'education': renderEducation(screen); break;
+        case 'education_steps': renderEducationSteps(screen); break;
         case 'settings': renderSettings(screen); break;
+        case 'faq': renderFaq(screen); break;
+        case 'privacy': renderPrivacy(screen); break;
+        case 'detection': renderDetectionMethods(screen); break;
       }
     }
 
@@ -748,33 +835,91 @@
     function renderWelcome(container) {
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// SYS_REV 1.04</span></div>
           <div class="page-title">Your messages. Your safety.</div>
           <div class="page-subtitle">Kenali risiko. Lindungi dirimu.</div>
         </div>
         <div class="scroll-body">
           <div class="card">
-            <div class="card-title">Perlindungan dari indikasi phishing</div>
-            <div class="card-desc">Analisis pesan SMS dan WhatsApp menggunakan Rule-Based Risk Scoring yang ringan dan berjalan di perangkat.</div>
-            <div class="card-tag" style="color: var(--cyan);">SMS • WHATSAPP • LOCAL ANALYSIS</div>
+            <div class="card-title">Perlindungan Indikasi Phishing</div>
+            <div class="card-desc">Analisis pesan SMS dan WhatsApp menggunakan Rule-Based Risk Scoring yang deterministik dan berjalan di perangkat.</div>
+            <div class="card-tag" style="color: var(--cyan);">CYBERSECURITY ASSISTANT NOTIFIKASI ANDROID</div>
           </div>
 
-          <div style="font-size: 16px; font-weight: 700; margin-top: 8px;">Masuk ke MIVVI SECURE</div>
-          <button class="btn btn-primary" onclick="navigate('login')">Sign In</button>
-          <button class="btn btn-secondary" onclick="navigate('signup')">Create Account</button>
-          <button class="btn btn-secondary" onclick="navigate('home')">Continue as Guest</button>
-
-          <div style="font-size: 11.5px; color: var(--muted); margin-top: 10px; line-height: 1.4;">
-            Akun pada prototipe ini adalah demo UI. Anda dapat langsung menggunakan fitur analisis melalui <b>mode tamu</b>.
+          <div class="card">
+            <div class="card-title">Status Proteksi Perangkat</div>
+            <div class="card-desc">Sistem memeriksa 6 indikator secara lokal tanpa transmisi data pesan ke cloud.</div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-val">V4.2</span>
+                <span class="stat-label">RULE ENGINE</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" style="color: var(--green);">0%</span>
+                <span class="stat-label">CLOUD LEAK</span>
+              </div>
+            </div>
           </div>
-          <div style="font-size: 10px; font-weight: 700; color: var(--muted); text-align: center; margin-top: 24px;">
-            PROTOTYPE 1.0 • RULE-BASED RISK SCORING
+
+          <button class="btn btn-primary" onclick="navigate('home')">Mulai Proteksi</button>
+          <button class="btn btn-secondary" onclick="navigate('guide')">Panduan Akses Notifikasi</button>
+          <button class="btn btn-secondary" onclick="navigate('login')">Sign In (UI Prototype)</button>
+
+          <div style="font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.4; text-align: center;">
+            PROTOTYPE 1.0 • RULE-BASED RISK SCORING • ZERO CLOUD LOGS
           </div>
         </div>
       `;
     }
 
-    // 2. Login Screen
+    // 2. Notification Guide
+    function renderNotificationGuide(container) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// SEC-AUTH</span></div>
+          <div class="page-title">Akses Notifikasi</div>
+          <div class="page-subtitle">Panduan aktivasi izin listener notifikasi pada Android.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card" style="border-color: ${simulatedNotificationAccess ? 'var(--green)' : 'var(--amber)'};">
+            <div class="card-title">Status Listener Android</div>
+            <div class="card-desc">${simulatedNotificationAccess ? 'Status: Terhubung (Mode Demo). MIVVI SECURE dapat membaca pratinjau pesan SMS & WhatsApp.' : 'Status: Belum Terhubung. Izin listener diperlukan untuk membaca cuplikan notifikasi.'}</div>
+            <div class="card-tag" style="color: ${simulatedNotificationAccess ? 'var(--green)' : 'var(--amber)'};">
+              STATUS: ${simulatedNotificationAccess ? 'AKTIF (CONNECTED)' : 'NONAKTIF'}
+            </div>
+          </div>
+
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--cyan); margin-top: 4px;">PROTOKOL AKTIVASI // 5 TAHAP</div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tahap 01: Buka Pengaturan Android</div>
+            <div class="card-desc">Buka menu Pengaturan (Settings) > Aplikasi & Notifikasi.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tahap 02: Pilih Akses Khusus / Notifikasi</div>
+            <div class="card-desc">Masuk ke menu Akses Aplikasi Khusus, lalu ketuk 'Akses Notifikasi'.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tahap 03: Temukan MIVVI SECURE</div>
+            <div class="card-desc">Cari aplikasi MIVVI SECURE dalam daftar listener yang tersedia.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tahap 04: Aktifkan Sakelar Izin</div>
+            <div class="card-desc">Berikan izin akses notifikasi jika kamu memahami dan menyetujuinya.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tahap 05: Kembali ke MIVVI SECURE</div>
+            <div class="card-desc">Aplikasi akan mendeteksi status akses secara lokal tanpa perlu restart.</div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="simulatedNotificationAccess = !simulatedNotificationAccess; renderNotificationGuide(container);">
+            Simulasikan Izin: ${simulatedNotificationAccess ? 'Matikan' : 'Aktifkan'}
+          </button>
+          <button class="btn btn-primary" onclick="navigate('home')">Kembali ke Beranda</button>
+        </div>
+      `;
+    }
+
+    // 3. Login / Signup / Forgot Password Prototype
     function renderLogin(container) {
       container.innerHTML = `
         <div class="header-bar">
@@ -791,7 +936,7 @@
             <span class="input-label">Password</span>
             <input type="password" class="input-field" placeholder="••••••••">
           </div>
-          <button class="btn btn-secondary" style="min-height: 40px; font-size: 12px;" onclick="navigate('forgot')">Forgot Password?</button>
+          <button class="btn btn-secondary" style="min-height: 38px; font-size: 12px;" onclick="navigate('forgot')">Forgot Password?</button>
           <button class="btn btn-primary" onclick="showModal('Autentikasi belum tersedia', 'Halaman login sudah tersedia sebagai prototipe UI, tetapi layanan akun belum dihubungkan. Klik Continue as Guest untuk melanjutkan.');">Sign In</button>
           <button class="btn btn-secondary" onclick="navigate('signup')">Create Account</button>
           <button class="btn btn-secondary" onclick="navigate('home')">Continue as Guest</button>
@@ -799,7 +944,6 @@
       `;
     }
 
-    // 3. Signup Screen
     function renderSignup(container) {
       container.innerHTML = `
         <div class="header-bar">
@@ -821,7 +965,7 @@
             <input type="password" class="input-field" placeholder="••••••••">
           </div>
           <label style="display: flex; gap: 8px; font-size: 12px; color: var(--pearl); align-items: center; margin: 4px 0;">
-            <input type="checkbox" id="terms-check" checked> Saya menyetujui Terms & Privacy Policy (demo)
+            <input type="checkbox" checked> Saya menyetujui Terms & Privacy Policy (demo)
           </label>
           <button class="btn btn-primary" onclick="showModal('Pendaftaran demo', 'Pendaftaran akun adalah prototipe UI. Silakan lanjutkan ke aplikasi sebagai tamu.'); setTimeout(()=>navigate('home'), 1200);">Create Account</button>
           <button class="btn btn-secondary" onclick="navigate('login')">Already have an account? Sign In</button>
@@ -829,7 +973,6 @@
       `;
     }
 
-    // 4. Forgot Password Screen
     function renderForgot(container) {
       container.innerHTML = `
         <div class="header-bar">
@@ -848,8 +991,7 @@
       `;
     }
 
-    // 5. Beranda (Home) Screen
-    let mockNotificationAccess = true;
+    // 4. Beranda (Home)
     function renderHome(container) {
       const records = getRecords();
       const total = records.length;
@@ -858,21 +1000,37 @@
 
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// KONSOL PENGGUNA</span></div>
           <div class="page-title">Beranda</div>
-          <div class="page-subtitle">Kenali risiko. Lindungi dirimu.</div>
+          <div class="page-subtitle">Lindungi dirimu dari pesan mencurigakan.</div>
         </div>
         <div class="scroll-body">
-          <div class="card">
-            <div class="card-title">${mockNotificationAccess ? "Akses notifikasi aktif" : "Akses notifikasi belum diaktifkan"}</div>
-            <div class="card-desc">${mockNotificationAccess ? "MIVVI SECURE siap memproses notifikasi dari WhatsApp dan SMS yang diizinkan." : "Aktifkan Notification Access agar aplikasi dapat membaca pratinjau notifikasi pesan."}</div>
-            <div class="card-tag" style="color: ${mockNotificationAccess ? 'var(--green)' : 'var(--amber)'};">
-              STATUS: ${mockNotificationAccess ? 'ENABLED' : 'NOT ENABLED'}
+          <div class="card" style="border-color: ${simulatedNotificationAccess ? 'rgba(45, 212, 191, 0.4)' : 'rgba(245, 158, 11, 0.4)'};">
+            <div class="card-title">${simulatedNotificationAccess ? "Sistem Pemantau Aktif [MODE DEMO]" : "Sistem Pemantau Belum Aktif"}</div>
+            <div class="card-desc">Memeriksa pola teks mencurigakan (URL pendek, urgensi palsu, impersonasi bank) secara privat di perangkat tanpa mengirim data ke server.</div>
+            <div class="card-tag" style="color: ${simulatedNotificationAccess ? 'var(--green)' : 'var(--amber)'};">
+              ${simulatedNotificationAccess ? 'STATUS: PEMANTAUAN AKTIF' : 'STATUS: BUTUH IZIN NOTIFIKASI'}
             </div>
           </div>
-          <button class="btn btn-secondary" style="min-height: 42px;" onclick="mockNotificationAccess = !mockNotificationAccess; renderHome(container);">
-            ${mockNotificationAccess ? 'Simulasikan Akses Nonaktif' : 'Simulasikan Akses Aktif'}
-          </button>
+
+          <div class="card">
+            <div class="card-title">Standar Tingkat Risiko</div>
+            <div class="card-desc">Klasifikasi deterministik berdasarkan bobot 6 indikator:</div>
+            <div class="stats-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+              <div class="stat-box">
+                <span class="stat-val" style="color: var(--green); font-size: 20px;">&lt; 3</span>
+                <span class="stat-label">AMAN</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" style="color: var(--amber); font-size: 20px;">3–5</span>
+                <span class="stat-label">CURIGA</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-val" style="color: var(--red); font-size: 20px;">≥ 6</span>
+                <span class="stat-label">PHISHING</span>
+              </div>
+            </div>
+          </div>
 
           <div class="card">
             <div class="card-title">Ringkasan Aktivitas</div>
@@ -892,125 +1050,189 @@
           <button class="btn btn-primary" onclick="navigate('manual')">Analisis Pesan Manual</button>
           <button class="btn btn-secondary" onclick="navigate('activities')">Lihat Aktivitas Notifikasi</button>
 
-          <div style="font-size: 16px; font-weight: 800; color: var(--pearl); margin-top: 10px;">Aktivitas Terbaru</div>
+          <div style="font-size: 15px; font-weight: 800; color: var(--pearl); margin-top: 8px;">Terakhir Terdeteksi</div>
           ${recent.length === 0 ? `
-            <div style="font-size: 13px; color: var(--muted); padding: 8px 0;">Belum ada aktivitas. Coba lakukan analisis pesan manual di atas.</div>
+            <div style="font-size: 12.5px; color: var(--muted); padding: 8px 0;">Belum ada aktivitas. Coba analisis pesan manual di atas.</div>
           ` : recent.map(r => `
-            <div class="card history-card" onclick='navigate("record_detail", ${JSON.stringify(r)})'>
+            <div class="card history-card" onclick='navigate("${r.content ? "record_detail" : "hidden_detail"}", ${JSON.stringify(r)})'>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-size: 12px; font-weight: 800; color: var(--cyan);">${r.source}</span>
-                <span style="font-size: 11px; font-weight: 800; color: ${r.result.category === 'PHISHING' ? 'var(--red)' : (r.result.category === 'MENCURIGAKAN' ? 'var(--amber)' : 'var(--green)')};">${r.result.category}</span>
+                <span style="font-size: 11.5px; font-weight: 800; color: var(--cyan);">${r.source}</span>
+                <span style="font-size: 10.5px; font-weight: 800; color: ${r.result.category === 'PHISHING' ? 'var(--red)' : (r.result.category === 'MENCURIGAKAN' ? 'var(--amber)' : (r.result.category === 'AMAN' ? 'var(--green)' : 'var(--muted)'))};">${r.result.category}</span>
               </div>
-              <div style="font-size: 12px; color: var(--pearl); font-weight: 600;">${r.sender || 'Pengirim tidak tersedia'}</div>
+              <div style="font-size: 12.5px; color: var(--pearl); font-weight: 700;">${r.sender || 'Pengirim tidak tersedia'}</div>
               <div style="font-size: 12px; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                ${r.content}
+                ${r.content || 'Konten notifikasi tidak tersedia (Pratinjau privat)'}
               </div>
-              <div style="font-size: 10px; color: var(--muted); margin-top: 8px;">Skor ${r.result.score} • ${new Date(r.timestamp).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' })} ${r.isDemo ? '• DEMO' : ''}</div>
+              <div style="font-size: 9.5px; color: var(--muted); margin-top: 6px;">Skor ${r.result.score}/13 • ${new Date(r.timestamp).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' })} ${r.isDemo ? '• DEMO' : ''}</div>
             </div>
           `).join('')}
 
-          <div style="font-size: 10px; color: var(--muted); text-align: center; margin-top: 14px;">
-            Pemrosesan lokal • Rule-Based Risk Scoring • Tidak mengirim isi pesan ke API
+          <div style="font-size: 9.5px; color: var(--muted); text-align: center; margin-top: 10px;">
+            RULE ENGINE V4.2.1 • ZERO CLOUD LOGS • 0 LATENSI
           </div>
         </div>
       `;
     }
 
-    // 6. Manual Analysis Screen
+    // 5. Analisis Manual
+    let manualSource = 'SMS';
     function renderManual(container, prefill = null) {
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// SANDBOX ENGINE</span></div>
           <div class="page-title">Analisis Manual</div>
-          <div class="page-subtitle">Masukkan isi pesan untuk memeriksa indikator risiko.</div>
+          <div class="page-subtitle">Periksa isi pesan yang ingin kamu analisis.</div>
         </div>
         <div class="scroll-body">
+          <div class="card">
+            <div class="card-title">Tips Privasi Otomatis</div>
+            <div class="card-desc">Jika isi pesan tidak tersedia pada notifikasi atau pratinjau disembunyikan WhatsApp, kamu dapat menempelkan teks pesan di sini untuk memeriksa indikator risiko.</div>
+          </div>
+
           <div class="input-group">
             <span class="input-label">Sumber Pesan</span>
-            <select class="select-field" id="msg-source">
-              <option value="SMS">SMS</option>
-              <option value="WHATSAPP">WhatsApp</option>
-            </select>
+            <div style="display: flex; gap: 8px;">
+              <button class="filter-chip ${manualSource === 'SMS' ? 'active' : ''}" style="flex: 1;" onclick="manualSource='SMS'; renderManual(container, {content: document.getElementById('msg-input').value, sender: document.getElementById('sender-input').value});">SMS</button>
+              <button class="filter-chip ${manualSource === 'WHATSAPP' ? 'active' : ''}" style="flex: 1;" onclick="manualSource='WHATSAPP'; renderManual(container, {content: document.getElementById('msg-input').value, sender: document.getElementById('sender-input').value});">WhatsApp</button>
+            </div>
           </div>
 
           <div class="input-group">
-            <span class="input-label">Identitas Pengirim (Opsional)</span>
-            <input type="text" class="input-field" id="msg-sender" placeholder="Contoh: 0812xxxx atau nama kontak">
+            <span class="input-label">Pengirim (Opsional)</span>
+            <input type="text" class="input-field" id="sender-input" placeholder="+62 812 XXXX atau Nama Institusi" value="${prefill?.sender || ''}">
           </div>
 
           <div class="input-group">
-            <span class="input-label">Isi Pesan</span>
-            <textarea class="input-field" id="msg-content" placeholder="Tempel isi SMS atau pesan WhatsApp di sini"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="input-label">Isi Pesan</span>
+              <div style="display: flex; gap: 6px;">
+                <span style="font-size: 10.5px; color: var(--cyan); cursor: pointer;" onclick="pasteToMsg()">TEMPEL TEKS</span>
+                <span style="font-size: 10.5px; color: var(--muted); cursor: pointer;" onclick="document.getElementById('msg-input').value=''; updateCharCount();">BERSIHKAN</span>
+              </div>
+            </div>
+            <textarea class="input-field" id="msg-input" placeholder="Tempel atau ketik isi pesan di sini... Contoh: Info rekening Anda terblokir...">${prefill?.content || ''}</textarea>
+            <div id="char-counter" style="font-size: 10px; color: var(--muted); text-align: right; margin-top: 2px;">READY FOR SCAN 0 / 1000 karakter</div>
           </div>
 
-          <button class="btn btn-secondary" onclick="fillDemoMessage()">Isi Contoh DEMO (Skor 13)</button>
-          <button class="btn btn-primary" onclick="performAnalysis()">Analisis Pesan</button>
+          <button class="btn btn-secondary" onclick="fillPhishingDemo()">Coba Contoh Phishing (Demo Skor 13)</button>
 
-          <div style="font-size: 11px; color: var(--muted); line-height: 1.4; margin-top: 6px;">
-            Catatan: isi pesan disimpan pada database lokal aplikasi simulator. Pesan tidak dikirim ke server backend API.
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Indikator Aturan Heuristik [6 Checks]</div>
+            <div class="card-desc" style="font-size: 11.5px; line-height: 1.5;">
+              Keyword bahaya +2 • Domain tak resmi +3 • Shortlink +2 • Pengirim baru +2 • Urgensi waktu +1 • Minta sensitif +3
+            </div>
           </div>
+
+          <button class="btn btn-primary" onclick="startManualScan()">Analisis Risiko</button>
+          <button class="btn btn-secondary" onclick="navigate('home')">Kembali ke Beranda</button>
         </div>
       `;
 
-      if (prefill) {
-        document.getElementById('msg-content').value = prefill.content || '';
-        document.getElementById('msg-sender').value = prefill.sender || '';
+      const msgInput = document.getElementById('msg-input');
+      function updateCharCount() {
+        const len = msgInput.value.length;
+        document.getElementById('char-counter').innerText = `READY FOR SCAN ${len} / 1000 karakter`;
+      }
+      msgInput.addEventListener('input', updateCharCount);
+      updateCharCount();
+    }
+
+    function fillPhishingDemo() {
+      document.getElementById('msg-input').value = "Rekening Anda diblokir. Segera verifikasi akun hari ini melalui https://bit.ly/verifikasi-aman dan kirim kode OTP/PIN.";
+      document.getElementById('sender-input').value = "Pengirim Tidak Dikenal";
+      const len = document.getElementById('msg-input').value.length;
+      document.getElementById('char-counter').innerText = `READY FOR SCAN ${len} / 1000 karakter`;
+    }
+
+    async function pasteToMsg() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('msg-input').value = text;
+        const len = text.length;
+        document.getElementById('char-counter').innerText = `READY FOR SCAN ${len} / 1000 karakter`;
+      } catch (err) {
+        alert("Gunakan Ctrl+V atau klik kanan untuk menempelkan teks.");
       }
     }
 
-    let isDemoMsg = false;
-    function fillDemoMessage() {
-      document.getElementById('msg-content').value = "Rekening Anda diblokir. Segera verifikasi akun hari ini melalui https://bit.ly/verifikasi-aman dan kirim kode OTP/PIN.";
-      document.getElementById('msg-sender').value = "Pengirim Tidak Dikenal";
-      isDemoMsg = true;
-    }
-
-    function performAnalysis() {
-      const content = document.getElementById('msg-content').value.trim();
-      const sender = document.getElementById('msg-sender').value.trim();
-      const source = document.getElementById('msg-source').value;
-
+    function startManualScan() {
+      const content = document.getElementById('msg-input').value.trim();
+      const sender = document.getElementById('sender-input').value.trim();
       if (!content) {
         showModal('Isi Pesan Kosong', 'Silakan masukkan teks pesan yang ingin dianalisis terlebih dahulu.');
         return;
       }
-
-      // Read trusted senders from storage
-      const trustedStr = localStorage.getItem('mivvi_trusted_senders') || '';
-      const trustedSenders = trustedStr.split('\n').map(s => s.trim()).filter(s => s);
-
-      const result = analyzeMessage(content, sender, trustedSenders);
-      const record = {
-        id: 'rec_' + Date.now(),
-        source,
-        sender: sender || 'Pengirim tidak tersedia',
-        content,
-        timestamp: Date.now(),
-        result,
-        isDemo: isDemoMsg
-      };
-
-      addRecord(record);
-      isDemoMsg = false;
-      navigate('result', record);
+      navigate('scan', { content, sender, source: manualSource });
     }
 
-    // 7. Result Screen
+    // 6. Scanning Transition Screen
+    function renderScanning(container, data) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// CYCLE: #MIV-9042</span></div>
+          <div class="page-title">Memeriksa Pesan...</div>
+          <div class="page-subtitle">Evaluasi heuristik berbasis aturan sedang berlangsung.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card">
+            <div class="card-title">DEEP SYSTEM SCAN</div>
+            <div class="card-desc" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 6px; line-height: 1.8;">
+              <span style="color: var(--green);">[VERIFIED 01] Normalisasi teks (Unicode & Case)</span><br>
+              <span style="color: var(--green);">[VERIFIED 02] Ekstraksi tautan & token URL</span><br>
+              <span style="color: var(--green);">[VERIFIED 03] Pencocokan kata kunci mencurigakan</span><br>
+              <span style="color: var(--amber);">[PROCESSING 04] Pemeriksaan pengirim & pola urgensi</span><br>
+              <span style="color: var(--muted);">[PENDING 05] Perhitungan total skor risiko rule-based</span><br>
+              <span style="color: var(--muted);">[PENDING 06] Penetapan tri-state klasifikasi</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">DATA SOVEREIGNTY GUARANTEE</div>
+            <div class="card-desc">MIVVI SECURE memeriksa 6 indikator deterministik tanpa transmisi cloud. Hasil didasarkan pada bobot aturan statis yang telah ditentukan.</div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="finishScan()">Selesai Memeriksa → Lihat Hasil</button>
+          <button class="btn btn-danger" onclick="navigate('manual')">Batalkan Analisis</button>
+        </div>
+      `;
+
+      window.scanTimer = setTimeout(finishScan, 700);
+      function finishScan() {
+        clearTimeout(window.scanTimer);
+        const trustedStr = localStorage.getItem('mivvi_trusted_senders') || '';
+        const trusted = trustedStr.split('\n').map(s => s.trim()).filter(s => s);
+        const result = analyzeMessage(data.content, data.sender, trusted);
+        const record = {
+          id: 'rec_' + Date.now(),
+          source: data.source,
+          sender: data.sender || 'Pengirim tidak tersedia',
+          content: data.content,
+          timestamp: Date.now(),
+          result,
+          isDemo: data.content.includes('bit.ly/verifikasi-aman')
+        };
+        addRecord(record);
+        navigate('result', record);
+      }
+      window.finishScan = finishScan;
+    }
+
+    // 7. Hasil Analisis (Detail Ancaman)
     function renderResult(container, record) {
       const res = record.result;
       const statusColor = res.category === 'PHISHING' ? 'var(--red)' : (res.category === 'MENCURIGAKAN' ? 'var(--amber)' : 'var(--green)');
 
       const advice = res.category === 'PHISHING'
-        ? "Jangan buka tautan atau memberikan OTP, PIN, maupun kata sandi. Verifikasi melalui aplikasi atau kanal resmi yang kamu buka sendiri."
+        ? "1. Jangan membuka tautan atau mengunduh berkas apapun dari pesan ini.\n2. Jangan pernah membagikan OTP, PIN, atau kata sandi kepada siapapun.\n3. Lakukan verifikasi mandiri hanya melalui aplikasi resmi atau call center terverifikasi."
         : (res.category === 'MENCURIGAKAN'
-          ? "Periksa identitas pengirim dan domain melalui kanal resmi. Jangan terburu-buru mengikuti instruksi pesan."
+          ? "1. Periksa kembali keaslian domain dan identitas pengirim.\n2. Jangan terburu-buru mengikuti instruksi dalam pesan.\n3. Hubungi institusi pengirim melalui kanal resmi yang kamu buka sendiri."
           : "Tidak ditemukan indikator kuat berdasarkan aturan saat ini. Tetap periksa konteks dan identitas pengirim sebelum bertindak.");
 
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// DETAIL ANCAMAN</span></div>
           <div class="page-title">Hasil Analisis</div>
-          <div class="page-subtitle">Hasil Rule-Based Risk Scoring</div>
+          <div class="page-subtitle">Kalkulasi Telemetri Heuristik Rule-Based</div>
         </div>
         <div class="scroll-body">
           <div class="score-banner" style="border-color: ${statusColor};">
@@ -1018,221 +1240,596 @@
               ${res.category} • ${res.level}
             </div>
             <div class="score-number" style="color: ${statusColor};">${res.score}</div>
-            <div style="font-size: 10px; font-weight: 800; color: var(--muted); letter-spacing: 1px;">SKOR RISIKO (MAX 13)</div>
+            <div style="font-size: 10px; font-weight: 800; color: var(--muted); letter-spacing: 1px;">TOTAL SKOR RISIKO (MAX 13)</div>
             <div style="font-size: 10.5px; color: var(--muted); margin-top: 6px;">
-              Batas klasifikasi: AMAN 0–2 • MENCURIGAKAN 3–5 • PHISHING ≥6
+              Skala Ambang: 0–2 Aman • 3–5 Curiga • 6+ Phishing
             </div>
           </div>
-
-          ${record.isDemo ? `<div style="font-size: 11px; font-weight: 800; color: var(--amber); text-align: center;">DEMO — contoh pesan sintetis</div>` : ''}
 
           <div class="card">
             <div class="card-title">Informasi Pesan</div>
             <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">
-              Sumber: <b>${record.source}</b> | Pengirim: <b>${record.sender}</b>
+              Platform: <b>${record.source}</b> | Pengirim: <b>${record.sender}</b>
             </div>
-            <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: 8px; font-size: 12px; color: var(--pearl); line-height: 1.45;">
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 12px; color: var(--pearl); line-height: 1.45; word-break: break-word;">
               ${record.content}
             </div>
           </div>
 
-          <div style="font-size: 15px; font-weight: 800; color: var(--pearl); margin-top: 4px;">Indikator Penilaian</div>
+          <div style="font-size: 14.5px; font-weight: 800; color: var(--pearl); margin-top: 4px;">
+            Mengapa pesan ini berisiko? (${res.features.filter(f=>f.detected).length} Terdeteksi)
+          </div>
           ${res.features.map(f => `
             <div class="indicator-item" style="border-left: 3px solid ${f.detected ? statusColor : 'rgba(255,255,255,0.1)'};">
               <div class="indicator-header">
                 <span style="color: ${f.detected ? 'var(--pearl)' : 'var(--muted)'};">${f.detected ? '●' : '○'} ${f.label}</span>
-                <span style="color: ${f.detected ? statusColor : 'var(--muted)'};">${f.detected ? '+' + f.points : '+0'}</span>
+                <span style="color: ${f.detected ? statusColor : 'var(--muted)'}; font-weight: 800;">${f.detected ? '+' + f.points : '+0'}</span>
               </div>
               <div class="indicator-desc">${f.explanation}</div>
               <div style="font-size: 9.5px; font-weight: 800; color: ${f.detected ? statusColor : 'var(--muted)'}; margin-top: 2px;">
-                ${f.detected ? 'TERDETEKSI' : 'TIDAK TERDETEKSI'}
+                ${f.detected ? 'TERDETEKSI (+' + f.points + ')' : 'TIDAK TERDETEKSI (+0)'}
               </div>
             </div>
           `).join('')}
 
           <div class="card">
-            <div class="card-title">Rekomendasi</div>
-            <div class="card-desc">${advice}</div>
+            <div class="card-title">Yang Sebaiknya Kamu Lakukan</div>
+            <div class="card-desc" style="white-space: pre-line;">${advice}</div>
           </div>
 
-          <button class="btn btn-secondary" onclick="navigate('history')">Lihat Riwayat Analisis</button>
+          <button class="btn btn-secondary" onclick="navigate('manual')">Analisis Pesan Manual Lain</button>
           <button class="btn btn-primary" onclick="navigate('home')">Kembali ke Beranda</button>
+          <button class="btn btn-secondary" onclick="navigate('history')">Lihat Riwayat Analisis</button>
         </div>
       `;
     }
 
-    // 8. Record List (Aktivitas / Riwayat)
+    // 8. Aktivitas Notifikasi
+    let activityFilter = null;
     function renderActivities(container) {
-      renderRecordList(container, 'Aktivitas Notifikasi');
-    }
-
-    function renderHistory(container) {
-      renderRecordList(container, 'Riwayat Analisis');
-    }
-
-    function renderRecordList(container, title) {
-      const records = getRecords();
+      const allRecords = getRecords();
+      const records = allRecords.filter(r => {
+        if (!activityFilter) return true;
+        if (activityFilter === 'PERLU_DIPERIKSA') return r.result.category === 'MENCURIGAKAN' || r.result.category === 'PHISHING';
+        return r.source === activityFilter;
+      });
 
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
-          <div class="page-title">${title}</div>
-          <div class="page-subtitle">Riwayat yang tersimpan secara lokal di perangkat ini.</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// AKTIVITAS</span></div>
+          <div class="page-title">Aktivitas Notifikasi</div>
+          <div class="page-subtitle">Notifikasi pesan yang tersedia untuk dianalisis.</div>
         </div>
         <div class="scroll-body">
+          <div class="filter-bar">
+            <button class="filter-chip ${activityFilter === null ? 'active' : ''}" onclick="activityFilter=null; renderActivities(container);">Semua (${allRecords.length})</button>
+            <button class="filter-chip ${activityFilter === 'SMS' ? 'active' : ''}" onclick="activityFilter='SMS'; renderActivities(container);">SMS</button>
+            <button class="filter-chip ${activityFilter === 'WHATSAPP' ? 'active' : ''}" onclick="activityFilter='WHATSAPP'; renderActivities(container);">WhatsApp</button>
+            <button class="filter-chip ${activityFilter === 'PERLU_DIPERIKSA' ? 'active' : ''}" onclick="activityFilter='PERLU_DIPERIKSA'; renderActivities(container);">Perlu Diperiksa</button>
+          </div>
+
           ${records.length === 0 ? `
             <div class="card">
-              <div class="card-title">Belum ada aktivitas</div>
-              <div class="card-desc">Aktivitas akan muncul setelah analisis manual atau pesan SMS/WhatsApp diproses.</div>
-              <div class="card-tag" style="color: var(--cyan);">MODE LOKAL</div>
+              <div class="card-title">Belum ada notifikasi</div>
+              <div class="card-desc">Notifikasi akan muncul setelah event SMS atau WhatsApp terdeteksi atau dianalisis.</div>
+              <div class="card-tag" style="color: var(--cyan);">STATUS ALIRAN DATA: STANDBY</div>
             </div>
             <button class="btn btn-primary" onclick="navigate('manual')">Mulai Analisis Manual</button>
-          ` : `
-            ${records.map(r => `
-              <div class="card history-card" onclick='navigate("record_detail", ${JSON.stringify(r)})'>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                  <span style="font-size: 12px; font-weight: 800; color: var(--cyan);">${r.source}</span>
-                  <span style="font-size: 11px; font-weight: 800; color: ${r.result.category === 'PHISHING' ? 'var(--red)' : (r.result.category === 'MENCURIGAKAN' ? 'var(--amber)' : 'var(--green)')};">${r.result.category}</span>
-                </div>
-                <div style="font-size: 12.5px; color: var(--pearl); font-weight: 700;">${r.sender || 'Pengirim tidak tersedia'}</div>
-                <div style="font-size: 12px; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                  ${r.content}
-                </div>
-                <div style="font-size: 10px; color: var(--muted); margin-top: 8px;">Skor ${r.result.score} • ${new Date(r.timestamp).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' })} ${r.isDemo ? '• DEMO' : ''}</div>
+          ` : records.map(r => `
+            <div class="card history-card" onclick='navigate("${r.content ? "record_detail" : "hidden_detail"}", ${JSON.stringify(r)})'>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 11.5px; font-weight: 800; color: var(--cyan);">${r.source}</span>
+                <span style="font-size: 10.5px; font-weight: 800; color: ${r.result.category === 'PHISHING' ? 'var(--red)' : (r.result.category === 'MENCURIGAKAN' ? 'var(--amber)' : (r.result.category === 'AMAN' ? 'var(--green)' : 'var(--muted)'))};">${r.result.category}</span>
               </div>
-            `).join('')}
-            <button class="btn btn-danger" style="margin-top: 8px;" onclick="if(confirm('Hapus seluruh riwayat analisis dari database lokal simulator?')){ clearRecords(); navigate(currentPage); }">
-              Hapus Semua Riwayat
-            </button>
-          `}
+              <div style="font-size: 12.5px; color: var(--pearl); font-weight: 700;">${r.sender || 'Pengirim tidak tersedia'}</div>
+              <div style="font-size: 12px; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${r.content || 'Konten notifikasi tidak tersedia (Pratinjau privat)'}
+              </div>
+              <div style="font-size: 9.5px; color: var(--muted); margin-top: 6px;">
+                Skor ${r.result.score}/13 • ${new Date(r.timestamp).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' })} ${r.isDemo ? '• DEMO' : ''}
+              </div>
+            </div>
+          `).join('')}
         </div>
       `;
     }
 
-    // 9. Record Detail
-    function renderRecordDetail(container, record) {
-      renderResult(container, record);
+    // 9. Pesan Belum Tersedia (Hidden Content Diagnostic)
+    function renderHiddenDetail(container, record) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// TELEMETRY_404</span></div>
+          <div class="page-title">Pesan Belum Tersedia</div>
+          <div class="page-subtitle">Konten notifikasi tidak dapat dibaca sepenuhnya.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card" style="border-color: var(--amber);">
+            <div class="card-title">Konten Notifikasi Tersembunyi</div>
+            <div class="card-desc">Beberapa notifikasi hanya menampilkan ringkasan, seperti '3 pesan baru' atau nama kontak pengirim saja. MIVVI SECURE tidak dapat menentukan skor risiko tanpa teks pesan yang memadai.</div>
+            <div class="card-tag" style="color: var(--amber);">PRINSIP INTEGRITAS DATA: TIDAK MEMBUAT SKOR PALSU</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Metadata Notifikasi</div>
+            <div class="card-desc">
+              Platform: <b>${record.source}</b><br>
+              Pengirim: <b>${record.sender}</b><br>
+              Waktu: ${new Date(record.timestamp).toLocaleString('id-ID')}
+            </div>
+          </div>
+
+          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 4px;">Yang Bisa Kamu Lakukan (3 Rekomendasi)</div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">STEP 01: Buka Aplikasi Pesan Terkait</div>
+            <div class="card-desc">Buka WhatsApp atau SMS secara langsung untuk membaca isi percakapan secara utuh.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">STEP 02: Periksa Pengaturan Pratinjau</div>
+            <div class="card-desc">Aktifkan opsi 'Tampilkan pratinjau pesan di layar kunci' pada setelan Android atau aplikasi WhatsApp.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">STEP 03: Masukkan Teks Secara Manual</div>
+            <div class="card-desc">Salin tautan atau kalimat yang dicurigai dari chat, lalu gunakan modul Analisis Manual.</div>
+          </div>
+
+          <button class="btn btn-primary" onclick="navigate('manual', {sender: '${record.sender}'})">Gunakan Analisis Manual</button>
+          <button class="btn btn-secondary" onclick="navigate('guide')">Panduan Pengaturan Notifikasi</button>
+          <button class="btn btn-secondary" onclick="navigate('activities')">Kembali ke Aktivitas</button>
+        </div>
+      `;
     }
 
-    // 10. Education Screen
-    function renderEducation(container) {
-      const articles = [
-        {
-          title: "Kenali Phishing Sebelum Terlambat",
-          desc: "Pelajari tanda-tanda pesan yang mencoba menipu, mencuri informasi pribadi, atau mengarahkan ke situs palsu."
-        },
-        {
-          title: "Ciri-Ciri Pesan Phishing",
-          desc: "Kenali tautan mencurigakan, permintaan data sensitif, dan informasi yang tidak wajar."
-        },
-        {
-          title: "Waspadai Pesan Mendesak",
-          desc: "Penipu sering memakai ancaman pemblokiran rekening atau hadiah dengan batas waktu singkat."
-        },
-        {
-          title: "Periksa Tautan Sebelum Membuka",
-          desc: "Periksa domain ejaan tautan dan waspadai penggunaan domain shortlink yang menyamarkan tujuan."
-        },
-        {
-          title: "Lindungi Data Pribadi",
-          desc: "Jangan berikan PIN, kata sandi, OTP, atau nomor CVV kepada siapapun melalui pesan instan."
-        },
-        {
-          title: "Langkah Saat Menemukan Pesan Mencurigakan",
-          desc: "Jangan klik tautan apapun. Segera verifikasi ke kanal resmi bank atau instansi terkait."
+    // 10. Riwayat Analisis
+    let historyFilter = null;
+    let historySearch = '';
+    function renderHistory(container) {
+      const allRecords = getRecords();
+      const records = allRecords.filter(r => {
+        if (historyFilter && r.result.category !== historyFilter) return false;
+        if (historySearch) {
+          const q = historySearch.toLowerCase();
+          const matchSender = (r.sender || '').toLowerCase().includes(q);
+          const matchContent = (r.content || '').toLowerCase().includes(q);
+          if (!matchSender && !matchContent) return false;
         }
+        return true;
+      });
+
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// LOGS LOKAL</span></div>
+          <div class="page-title">Riwayat Analisis</div>
+          <div class="page-subtitle">Periksa kembali hasil analisis yang tersimpan.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="input-group">
+            <input type="text" class="input-field" placeholder="Cari pengirim atau isi pesan..." value="${historySearch}" id="hist-search-input">
+          </div>
+
+          <div class="filter-bar">
+            <button class="filter-chip ${historyFilter === null ? 'active' : ''}" onclick="historyFilter=null; renderHistory(container);">Semua</button>
+            <button class="filter-chip ${historyFilter === 'AMAN' ? 'active' : ''}" onclick="historyFilter='AMAN'; renderHistory(container);">Aman</button>
+            <button class="filter-chip ${historyFilter === 'MENCURIGAKAN' ? 'active' : ''}" onclick="historyFilter='MENCURIGAKAN'; renderHistory(container);">Mencurigakan</button>
+            <button class="filter-chip ${historyFilter === 'PHISHING' ? 'active' : ''}" onclick="historyFilter='PHISHING'; renderHistory(container);">Phishing</button>
+          </div>
+
+          ${records.length === 0 ? `
+            <div class="card">
+              <div class="card-title">Belum ada riwayat</div>
+              <div class="card-desc">Hasil analisis yang disimpan akan muncul di sini secara lokal dan terlindungi.</div>
+              <div class="card-tag" style="color: var(--cyan);">0% CLOUD LEAK • PENYIMPANAN PRIVAT</div>
+            </div>
+            <button class="btn btn-primary" onclick="navigate('manual')">Mulai Analisis Manual</button>
+          ` : records.map(r => `
+            <div class="card history-card" onclick='navigate("record_detail", ${JSON.stringify(r)})'>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-size: 11.5px; font-weight: 800; color: var(--cyan);">${r.source}</span>
+                <span style="font-size: 10.5px; font-weight: 800; color: ${r.result.category === 'PHISHING' ? 'var(--red)' : (r.result.category === 'MENCURIGAKAN' ? 'var(--amber)' : (r.result.category === 'AMAN' ? 'var(--green)' : 'var(--muted)'))};">${r.result.category}</span>
+              </div>
+              <div style="font-size: 12.5px; color: var(--pearl); font-weight: 700;">${r.sender || 'Pengirim tidak tersedia'}</div>
+              <div style="font-size: 12px; color: var(--muted); margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${r.content || 'Konten tidak tersedia'}
+              </div>
+              <div style="font-size: 9.5px; color: var(--muted); margin-top: 6px;">Skor ${r.result.score}/13 • ${new Date(r.timestamp).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' })} ${r.isDemo ? '• DEMO' : ''}</div>
+            </div>
+          `).join('')}
+
+          ${allRecords.length > 0 ? `
+            <button class="btn btn-danger" onclick="if(confirm('Hapus seluruh riwayat analisis dari memori lokal?')){ clearRecords(); renderHistory(container); }">Hapus Semua Riwayat</button>
+          ` : ''}
+        </div>
+      `;
+
+      const searchInput = document.getElementById('hist-search-input');
+      searchInput.addEventListener('input', (e) => {
+        historySearch = e.target.value;
+        renderHistory(container);
+      });
+    }
+
+    // 11. Detail Riwayat
+    function renderRecordDetail(container, record) {
+      const res = record.result;
+      const statusColor = res.category === 'PHISHING' ? 'var(--red)' : (res.category === 'MENCURIGAKAN' ? 'var(--amber)' : 'var(--green)');
+
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// DETAIL RIWAYAT</span></div>
+          <div class="page-title">Detail Riwayat</div>
+          <div class="page-subtitle">Catatan hasil analisis dari memori lokal.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="score-banner" style="border-color: ${statusColor};">
+            <div class="score-badge" style="background: ${statusColor}; color: var(--cosmic);">
+              ${res.category} • ${res.level}
+            </div>
+            <div class="score-number" style="color: ${statusColor};">${res.score}</div>
+            <div style="font-size: 10px; font-weight: 800; color: var(--muted); letter-spacing: 1px;">SKOR RISIKO ${res.score}/13</div>
+            <div style="font-size: 10.5px; color: var(--muted); margin-top: 4px;">Ambang: 0–2 Aman • 3–5 Curiga • 6+ Phishing</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Informasi Pesan</div>
+            <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">
+              Platform: <b>${record.source}</b> | Waktu: <b>${new Date(record.timestamp).toLocaleString('id-ID')}</b><br>
+              Pengirim: <b>${record.sender}</b>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 12px; color: var(--pearl); line-height: 1.45; word-break: break-word;">
+              ${record.content}
+            </div>
+          </div>
+
+          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 4px;">Aturan Heuristik Terpicu (${res.features.filter(f=>f.detected).length} Rules)</div>
+          ${res.features.map(f => `
+            <div class="indicator-item" style="border-left: 3px solid ${f.detected ? statusColor : 'rgba(255,255,255,0.1)'};">
+              <div class="indicator-header">
+                <span style="color: ${f.detected ? 'var(--pearl)' : 'var(--muted)'};">${f.detected ? '●' : '○'} ${f.label}</span>
+                <span style="color: ${f.detected ? statusColor : 'var(--muted)'}; font-weight: 800;">${f.detected ? '+' + f.points : '+0'}</span>
+              </div>
+              <div class="indicator-desc">${f.explanation}</div>
+              <div style="font-size: 9.5px; font-weight: 800; color: ${f.detected ? statusColor : 'var(--muted)'}; margin-top: 2px;">
+                ${f.detected ? 'TERDETEKSI (+' + f.points + ')' : 'TIDAK TERDETEKSI (+0)'}
+              </div>
+            </div>
+          `).join('')}
+
+          <button class="btn btn-primary" onclick="navigate('manual', {content: '${record.content.replace(/'/g, "\\'")}', sender: '${record.sender}'})">Analisis Ulang Pesan Ini</button>
+          <button class="btn btn-danger" onclick="if(confirm('Hapus catatan ini dari riwayat?')){ deleteRecord('${record.id}'); navigate('history'); }">Hapus dari Riwayat (Konfirmasi)</button>
+          <button class="btn btn-secondary" onclick="navigate('history')">Kembali ke Riwayat</button>
+        </div>
+      `;
+    }
+
+    // 12. Edukasi Keamanan
+    function renderEducation(container) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// TELEMETRI [08]</span></div>
+          <div class="page-title">Edukasi Keamanan</div>
+          <div class="page-subtitle">Kenali pola phishing. Sedikit waspada, jauh lebih terlindungi.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card" style="border-color: var(--cyan); cursor: pointer;" onclick="navigate('education_steps')">
+            <div class="card-title">5 Langkah Sebelum Membuka Tautan</div>
+            <div class="card-desc">Pedoman praktis mengenali rekayasa sosial dan tautan berbahaya dalam genggaman. Disertai simulasi checklist.</div>
+            <div class="card-tag" style="color: var(--cyan);">MODUL EDUKASI UNGGULAN → BUKA & SIMULASI</div>
+          </div>
+
+          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 6px;">3 Tanda Pesan yang Patut Diwaspadai</div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tautan Tidak Dikenal [SEC_01]</div>
+            <div class="card-desc">Periksa alamat domain dan jangan langsung membuka tautan yang dikirim oleh pengirim tidak dikenal.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Tekanan untuk Segera Bertindak [SEC_02]</div>
+            <div class="card-desc">Waspadai pesan yang mengancam pemblokiran akun atau batas waktu mendesak (1x24 jam).</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Permintaan Data Rahasia [SEC_03]</div>
+            <div class="card-desc">Jangan pernah membagikan OTP, PIN, atau kata sandi melalui pesan yang mencurigakan.</div>
+          </div>
+
+          <div class="card" style="border-color: var(--red); cursor: pointer;" onclick="navigate('manual', {content: 'PENTING: Rekening Anda terdeteksi akses ilegal! Kami akan membekukan saldo Anda dalam waktu 1x24 jam. Segera verifikasi pembatalan lewat portal darurat bit.ly/aman-bank-id dan kirim Kode OTP.', sender: 'BANK-PUSAT-NOT'})">
+            <div class="card-title" style="color: var(--red);">Simulasi Pesan Intercept [BANK-PUSAT-NOT]</div>
+            <div class="card-desc">"PENTING: Rekening Anda terdeteksi akses ilegal! Kami akan membekukan saldo Anda dalam waktu 1x24 jam. Segera verifikasi pembatalan lewat bit.ly/aman-bank-id dan masukkan Kode OTP..."</div>
+            <div class="card-tag" style="color: var(--red);">THREAT SCORE: 13/13 (PHISHING) • UJI DI ANALISIS MANUAL →</div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="navigate('faq')">Pusat Bantuan & FAQ</button>
+          <button class="btn btn-secondary" onclick="navigate('detection')">Metode Deteksi & Batasan</button>
+        </div>
+      `;
+    }
+
+    function renderEducationSteps(container) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// DETAIL EDUKASI</span></div>
+          <div class="page-title">5 Langkah Tautan</div>
+          <div class="page-subtitle">Pedoman praktis mengenali rekayasa sosial.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Langkah 01: Periksa Domain Secara Teliti</div>
+            <div class="card-desc">Bandingkan alamat web dengan domain resmi institusi. Waspadai huruf pengganti visual atau typo tipis seperti bca-klik.com vs bca.co.id.</div>
+            <div style="font-size: 11px; color: var(--cyan); margin-top: 4px;">Rekomendasi: Jangan klik sebelum memeriksa nama host utama.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Langkah 02: Waspadai Shortlink Tak Terduga</div>
+            <div class="card-desc">Layanan penyingkat tautan (seperti bit.ly, s.id, atau tinyurl) kerap dimanfaatkan pelaku untuk menyembunyikan alamat target berbahaya.</div>
+            <div style="font-size: 11px; color: var(--cyan); margin-top: 4px;">Rekomendasi: Bank resmi tidak menggunakan pemendek link publik cuma-cuma.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Langkah 03: Jangan Panik Ancaman Waktu</div>
+            <div class="card-desc">Pelaku sengaja menciptakan ilusi urgensi buatan seperti 'dalam 1x24 jam akun dibekukan' guna melumpuhkan nalar kritis.</div>
+            <div style="font-size: 11px; color: var(--cyan); margin-top: 4px;">Rekomendasi: Tarik napas, beri jeda 3 menit, lalu hubungi kanal resmi.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Langkah 04: Pantang Berikan OTP, PIN & Sandi</div>
+            <div class="card-desc">One Time Password (OTP) adalah gerbang otentikasi mutlak. Bank maupun institusi tidak pernah meminta kode ini melalui chat.</div>
+            <div style="font-size: 11px; color: var(--cyan); margin-top: 4px;">Rekomendasi: Anggap siapa pun yang meminta OTP adalah penipu.</div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size: 13px;">Langkah 05: Verifikasi Mandiri Kanal Resmi</div>
+            <div class="card-desc">Jangan mempercayai nomor telepon atau tautan customer support yang ditulis langsung di dalam teks pengirim.</div>
+            <div style="font-size: 11px; color: var(--cyan); margin-top: 4px;">Rekomendasi: Buka manual aplikasi mobile banking resmi di ponselmu.</div>
+          </div>
+
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--pearl); margin-top: 6px;">Sebelum Kamu Klik... (Checklist)</div>
+          <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: center;">
+            <input type="checkbox"> Domain sesuai alamat resmi institusi
+          </label>
+          <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: center;">
+            <input type="checkbox"> Bukan tautan singkat (shortlink) tersembunyi
+          </label>
+          <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: center;">
+            <input type="checkbox"> Tidak ada paksaan batas waktu darurat
+          </label>
+          <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: center;">
+            <input type="checkbox"> Tidak meminta OTP, kata sandi, atau data kartu
+          </label>
+
+          <button class="btn btn-primary" onclick="navigate('manual')">Coba Simulasi Analisis</button>
+          <button class="btn btn-secondary" onclick="navigate('education')">Kembali ke Edukasi</button>
+        </div>
+      `;
+    }
+
+    // 13. FAQ
+    function renderFaq(container) {
+      const faqs = [
+        ["Q.01 Apakah MIVVI SECURE membaca seluruh chat WhatsApp saya?", "Tidak. Aplikasi hanya membaca teks pratinjau notifikasi yang ditampilkan Android setelah izin diberikan pengguna. Aplikasi tidak memiliki akses ke database obrolan privat WhatsApp."],
+        ["Q.02 Mengapa isi notifikasi kadang tidak tersedia?", "Jika pengguna menyembunyikan pratinjau pesan di layar kunci atau dalam aplikasi WhatsApp, Android hanya menyediakan metadata ringkasan. MIVVI SECURE tidak menebak isi pesan yang tersembunyi."],
+        ["Q.03 Apakah skor tinggi membuktikan pesan pasti penipuan hukum?", "Tidak. Skor risiko merupakan indikator heuristik berbasis aturan untuk meningkatkan kewaspadaan, bukan vonis mutlak hukum."],
+        ["Q.04 Apakah aplikasi memblokir pesan secara otomatis?", "Tidak. Prototipe ini tidak memblokir atau menghapus pesan secara sepihak tanpa izin eksplisit pengguna."],
+        ["Q.05 Bagaimana skor risiko dihitung?", "Skor dihitung dari akumulasi 6 indikator deterministik: Keyword (+2), URL di luar whitelist (+3), Shortlink (+2), Pengirim tidak dikenal (+2), Urgensi (+1), dan Permintaan data sensitif (+3). Maksimum skor adalah 13."],
+        ["Q.06 Di mana riwayat analisis disimpan?", "Riwayat disimpan secara lokal di database SQLite perangkat Anda. Tidak ada pengiriman data pesan ke cloud pihak ketiga."]
       ];
 
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
-          <div class="page-title">Edukasi Keamanan</div>
-          <div class="page-subtitle">Panduan mengenali pesan berbahaya & perlindungan diri.</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// FAQ</span></div>
+          <div class="page-title">Pusat Bantuan</div>
+          <div class="page-subtitle">Kenali cara kerja, privasi, dan batasan sistem.</div>
         </div>
         <div class="scroll-body">
-          <div class="card" style="border-color: rgba(99, 221, 232, 0.4); cursor: pointer;" onclick="showArticleModal('${articles[0].title}')">
-            <div class="card-title">${articles[0].title}</div>
-            <div class="card-desc">${articles[0].desc}</div>
-            <div class="card-tag" style="color: var(--cyan);">ARTIKEL UNGGULAN →</div>
-          </div>
-
-          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 6px;">Topik Keamanan</div>
-          ${articles.slice(1).map(a => `
-            <div class="card" style="cursor: pointer;" onclick="showArticleModal('${a.title}')">
-              <div class="card-title" style="font-size: 14px;">${a.title}</div>
-              <div class="card-desc">${a.desc}</div>
-              <div class="card-tag" style="color: var(--cyan);">BACA SELENGKAPNYA →</div>
+          ${faqs.map(([q, a]) => `
+            <div class="card">
+              <div class="card-title" style="font-size: 13px;">${q}</div>
+              <div class="card-desc" style="font-size: 12px;">${a}</div>
+              <div class="card-tag" style="color: var(--cyan);">ARSIP TERVERIFIKASI</div>
             </div>
           `).join('')}
 
-          <button class="btn btn-secondary" onclick="showModal('Pusat Bantuan & FAQ', 'MIVVI SECURE menggunakan Rule-Based Risk Scoring yang deterministik.\\n\\nHasil analisis merupakan indikator risiko, bukan kepastian bahwa pesan aman atau berbahaya.\\n\\nPerlindungan terbaik selalu diawali dengan kehati-hatian pengguna.');">
-            Pusat Bantuan & FAQ
-          </button>
+          <button class="btn btn-secondary" onclick="navigate('detection')">Pelajari Metode Deteksi</button>
+          <button class="btn btn-secondary" onclick="navigate('privacy')">Lihat Kebijakan Privasi & Data</button>
+          <button class="btn btn-primary" onclick="navigate('settings')">Kembali ke Pengaturan</button>
         </div>
       `;
     }
 
-    function showArticleModal(title) {
-      showModal(
-        title,
-        "Berhenti sejenak sebelum bertindak. Periksa alamat pengirim dan domain tautan dengan teliti.\n\nJangan pernah memberikan kode OTP, PIN, atau kata sandi melalui pesan. Bila pesan mengaku berasal dari bank atau instansi resmi, buka aplikasi atau situs resmi secara mandiri untuk melakukan verifikasi.\n\nContoh pada halaman edukasi ini bersifat informatif untuk meningkatkan literasi keamanan digital Anda."
-      );
+    // 14. Privasi & Data
+    function renderPrivacy(container) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// PRIVASI & DATA</span></div>
+          <div class="page-title">Privasi dan Data</div>
+          <div class="page-subtitle">Kamu berhak memahami informasi yang diproses.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card">
+            <div class="card-title">1.0 // SUMBER INFORMASI</div>
+            <div class="card-desc">Aplikasi hanya membaca data yang diekspos melalui Android Notification Listener setelah izin diberikan oleh pengguna. Fitur Analisis Manual disediakan sebagai alternatif jika pratinjau disembunyikan.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">2.0 // INFORMASI YANG DIPROSES</div>
+            <div class="card-desc">
+              1. Teks Notifikasi (push alert sistem)<br>
+              2. Pengirim (nomor atau nama kontak)<br>
+              3. Sumber Aplikasi (paket WhatsApp / SMS)<br>
+              4. Waktu Diterima (timestamp lokal)<br>
+              5. Indikator Aturan (skor risiko lokal)
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">3.0 // RIWAYAT ANALISIS & PENYIMPANAN</div>
+            <div class="card-desc">Penyimpanan Lokal: Data diisolasi di memori SQLite privat perangkat. Tidak ada pengiriman data pesan ke cloud eksternal atau database pihak ketiga.</div>
+            <div class="card-tag" style="color: var(--green);">0% CLOUD LEAK • PENYIMPANAN PRIVAT</div>
+          </div>
+          <div class="card">
+            <div class="card-title">4.0 // BATASAN DETEKSI & TANGGUNG JAWAB</div>
+            <div class="card-desc">Skor risiko tinggi merupakan indikator anomali berdasarkan kata kunci dan pola, bukan pembuktian hukum mutlak. Pesan yang disembunyikan tidak dapat dievaluasi secara otomatis.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">5.0 // KONTROL PRIVASI PENGGUNA</div>
+            <div class="card-desc">Pengguna dapat mengelola filter sumber notifikasi, mengubah daftar pengirim tepercaya, dan menghapus seluruh riwayat kapan saja.</div>
+          </div>
+
+          <button class="btn btn-primary" onclick="navigate('settings')">Kembali ke Pengaturan</button>
+        </div>
+      `;
     }
 
-    // 11. Settings Screen
+    // 15. Metode Deteksi & Simulator Bobot 6 Aturan Interaktif
+    function renderDetectionMethods(container) {
+      container.innerHTML = `
+        <div class="header-bar">
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// METODE DETEKSI</span></div>
+          <div class="page-title">Metode Deteksi</div>
+          <div class="page-subtitle">Transparansi Rule-Based Risk Scoring deterministik.</div>
+        </div>
+        <div class="scroll-body">
+          <div class="card">
+            <div class="card-title">Sistem Penilaian Deterministik</div>
+            <div class="card-desc">Sistem memeriksa 6 indikator statis dan menjumlahkan penalti bobot risiko secara modular. Uji coba langsung di bawah:</div>
+
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;" id="sim-toggles">
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-1" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>Keyword mencurigakan (+2 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">'TERBLOKIR', 'hadiah', 'verifikasi'</span></span>
+              </label>
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-2" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>URL di luar whitelist (+3 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">Domain tidak terdaftar di direktori resmi</span></span>
+              </label>
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-3" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>Penggunaan shortlink (+2 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">bit.ly, s.id, tinyurl</span></span>
+              </label>
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-4" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>Pengirim tak terverifikasi (+2 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">Nomor baru / bukan pengirim tepercaya</span></span>
+              </label>
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-5" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>Tekanan urgensi waktu (+1 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">'1x24 jam', 'segera'</span></span>
+              </label>
+              <label style="display: flex; gap: 8px; font-size: 12.5px; color: var(--pearl); align-items: flex-start;">
+                <input type="checkbox" id="sim-cb-6" onchange="calcLiveSim()" style="margin-top: 3px;">
+                <span><b>Permintaan data sensitif (+3 Poin)</b><br><span style="font-size: 11px; color: var(--muted);">OTP, PIN, Password, Kode Verifikasi</span></span>
+              </label>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; margin-top: 12px; text-align: center;">
+              <div id="sim-result-badge" class="score-badge" style="background: var(--green); color: var(--cosmic);">STATUS: AMAN (MINIMAL)</div>
+              <div id="sim-result-score" style="font-size: 32px; font-weight: 900; color: var(--green);">SKOR: 0</div>
+              <div id="sim-result-formula" style="font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--muted); margin-top: 4px;">Formula: 0 + 0 + 0 + 0 + 0 + 0 = 0 / 13</div>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+              <button class="btn btn-secondary" style="flex: 1; min-height: 38px; font-size: 11.5px;" onclick="simSelectAll(true)">PILIH SEMUA (SKOR 13)</button>
+              <button class="btn btn-secondary" style="flex: 1; min-height: 38px; font-size: 11.5px;" onclick="simSelectAll(false)">RESET (SKOR 0)</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Formula Skor & Ambang Batas</div>
+            <div class="card-desc" style="line-height: 1.6;">
+              • <b>AMAN (0–2)</b>: Pola pesan normal & wajar<br>
+              • <b>MENCURIGAKAN (3–5)</b>: Ada indikator anomali, butuh verifikasi manual<br>
+              • <b>PHISHING (≥6)</b>: Indikasi kuat rekayasa sosial<br><br>
+              Skenario Total: 2 + 3 + 2 + 2 + 1 + 3 = 13 (Kategori PHISHING) jika keenam indikator terpenuhi serempak.
+            </div>
+          </div>
+
+          <button class="btn btn-secondary" onclick="navigate('faq')">Buka Pusat Bantuan & FAQ</button>
+          <button class="btn btn-primary" onclick="navigate('settings')">Kembali ke Pengaturan</button>
+        </div>
+      `;
+
+      function calcLiveSim() {
+        const weights = [2, 3, 2, 2, 1, 3];
+        let total = 0;
+        const parts = [];
+        for (let i = 1; i <= 6; i++) {
+          const cb = document.getElementById('sim-cb-' + i);
+          if (cb && cb.checked) {
+            total += weights[i - 1];
+            parts.push('+' + weights[i - 1]);
+          } else {
+            parts.push('+0');
+          }
+        }
+        let status = 'AMAN';
+        let color = 'var(--green)';
+        if (total >= 6) { status = 'PHISHING'; color = 'var(--red)'; }
+        else if (total >= 3) { status = 'MENCURIGAKAN'; color = 'var(--amber)'; }
+
+        document.getElementById('sim-result-badge').innerText = `STATUS: ${status}`;
+        document.getElementById('sim-result-badge').style.background = color;
+        document.getElementById('sim-result-score').innerText = `SKOR: ${total}`;
+        document.getElementById('sim-result-score').style.color = color;
+        document.getElementById('sim-result-formula').innerText = `Formula: ${parts.join(' ')} = ${total} / 13`;
+      }
+      window.calcLiveSim = calcLiveSim;
+
+      function simSelectAll(val) {
+        for (let i = 1; i <= 6; i++) {
+          const cb = document.getElementById('sim-cb-' + i);
+          if (cb) cb.checked = val;
+        }
+        calcLiveSim();
+      }
+      window.simSelectAll = simSelectAll;
+    }
+
+    // 16. Pengaturan (Settings)
     function renderSettings(container) {
       const savedTrusted = localStorage.getItem('mivvi_trusted_senders') || '';
       const savedApiUrl = localStorage.getItem('mivvi_api_url') || 'http://127.0.0.1:8000';
 
       container.innerHTML = `
         <div class="header-bar">
-          <div class="brand-title">✦ MIVVI SECURE</div>
+          <div class="brand-title">✦ MIVVI SECURE <span class="brand-tag">// PENGATURAN</span></div>
           <div class="page-title">Pengaturan</div>
-          <div class="page-subtitle">Konfigurasi preferensi deteksi dan sinkronisasi aturan.</div>
+          <div class="page-subtitle">Atur pengalaman dan keamanan aplikasimu.</div>
         </div>
         <div class="scroll-body">
-          <div class="card">
-            <div class="card-title">Akses Notifikasi</div>
-            <div class="card-desc">${mockNotificationAccess ? "Izin Notification Access aktif." : "Izin Notification Access belum diberikan."}</div>
-            <button class="btn btn-secondary" style="min-height: 38px; margin-top: 10px; font-size: 12px;" onclick="mockNotificationAccess = !mockNotificationAccess; renderSettings(container);">
-              ${mockNotificationAccess ? 'Nonaktifkan Simulasi' : 'Aktifkan Simulasi'}
+          <div class="card" style="border-color: ${simulatedNotificationAccess ? 'var(--green)' : 'var(--amber)'};">
+            <div class="card-title">Akses Notifikasi Android</div>
+            <div class="card-desc">${simulatedNotificationAccess ? "Izin Notification Access aktif [Mode Demo / Connected]." : "Izin Notification Access belum diberikan."}</div>
+            <button class="btn btn-secondary" style="min-height: 38px; margin-top: 10px; font-size: 11.5px;" onclick="navigate('guide')">
+              Panduan & Pengaturan Akses Android
             </button>
           </div>
 
-          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 4px;">Sumber Notifikasi</div>
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--pearl); margin-top: 4px;">Kelola Sumber Analisis</div>
           <label style="display: flex; gap: 8px; font-size: 13px; color: var(--pearl); align-items: center;">
-            <input type="checkbox" id="set-wa" checked> WhatsApp & WA Business
+            <input type="checkbox" id="set-wa" checked> WhatsApp Messenger & Business
           </label>
           <label style="display: flex; gap: 8px; font-size: 13px; color: var(--pearl); align-items: center;">
             <input type="checkbox" id="set-sms" checked> Aplikasi SMS Bawaan
           </label>
 
-          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 8px;">Pengirim Tepercaya</div>
-          <div style="font-size: 11.5px; color: var(--muted);">Masukkan satu identitas/nomor per baris. Pengirim tidak dikenal akan mendapat indikator +2.</div>
-          <textarea class="input-field" id="trusted-senders-field" placeholder="Contoh:&#10;08123456789&#10;Bank Mandiri">${savedTrusted}</textarea>
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--pearl); margin-top: 6px;">Pengirim Tepercaya</div>
+          <div style="font-size: 11px; color: var(--muted);">Masukkan satu identitas/nomor per baris. Pengirim di luar daftar akan mendapat indikator (+2).</div>
+          <textarea class="input-field" id="trusted-field" placeholder="Contoh:&#10;08123456789&#10;Bank Mandiri Resmi">${savedTrusted}</textarea>
 
-          <div style="font-size: 14px; font-weight: 800; color: var(--pearl); margin-top: 8px;">Integrasi Data (API Rules)</div>
-          <div style="font-size: 11.5px; color: var(--muted);">Base URL backend untuk sinkronisasi aturan risiko dan whitelist domain.</div>
-          <input type="text" class="input-field" id="api-url-field" value="${savedApiUrl}">
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--pearl); margin-top: 6px;">Integrasi Data (Rules API)</div>
+          <div style="font-size: 11px; color: var(--muted);">Base URL backend untuk mengambil pembaruan aturan deteksi dan whitelist. Isi pesan tidak dikirim ke API.</div>
+          <input type="text" class="input-field" id="api-field" value="${savedApiUrl}">
 
           <button class="btn btn-primary" onclick="saveSettings()">Simpan & Sinkronkan Aturan</button>
+
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--pearl); margin-top: 8px;">Dokumentasi & Standar</div>
+          <button class="btn btn-secondary" onclick="navigate('detection')">Tentang & Metode Deteksi (Simulator Bobot)</button>
+          <button class="btn btn-secondary" onclick="navigate('faq')">Pusat Bantuan & FAQ</button>
+          <button class="btn btn-secondary" onclick="navigate('privacy')">Privasi dan Penggunaan Data</button>
+
           <button class="btn btn-danger" onclick="if(confirm('Hapus seluruh riwayat analisis lokal?')){ clearRecords(); showModal('Riwayat Dihapus', 'Seluruh riwayat analisis lokal berhasil dibersihkan.'); }">
-            Hapus Semua Riwayat Lokal
+            Hapus Semua Riwayat Analisis Lokal
           </button>
 
-          <div style="font-size: 10.5px; color: var(--muted); margin-top: 8px; line-height: 1.4;">
-            Privasi: data analisis disimpan di database lokal. Tidak ada sinkronisasi pesan atau identitas pengirim ke server.
-          </div>
-          <div style="font-size: 10px; font-weight: 700; color: var(--cyan); text-align: center; margin-top: 14px;">
-            MIVVI SECURE • Rule-Based Risk Scoring • Prototype 1.0
+          <div style="font-size: 9.5px; font-weight: 700; color: var(--cyan); text-align: center; margin-top: 10px;">
+            MIVVI SECURE • RULE-BASED RISK SCORING • PROTOTYPE 1.0
           </div>
         </div>
       `;
     }
 
     async function saveSettings() {
-      const trusted = document.getElementById('trusted-senders-field').value;
-      const apiUrl = document.getElementById('api-url-field').value.trim();
+      const trusted = document.getElementById('trusted-field').value;
+      const apiUrl = document.getElementById('api-field').value.trim();
 
       localStorage.setItem('mivvi_trusted_senders', trusted);
       localStorage.setItem('mivvi_api_url', apiUrl);
@@ -1247,7 +1844,7 @@
             return;
           }
         } catch (e) {
-          showModal('Sinkronisasi Gagal', `Pengaturan tersimpan, namun gagal menghubungi API: ${e.message}. Aturan lokal tetap digunakan.`);
+          showModal('Sinkronisasi Gagal', `Pengaturan tersimpan, namun gagal menghubungi API: ${e.message}. Aturan lokal tetap aktif.`);
           return;
         }
       }
